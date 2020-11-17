@@ -18,7 +18,7 @@ public class Perso {
     int agilite = 0;
     int dommages = 0;
     int sexe; // 0M 1F
-    String name;
+    String pseudo;
     //ToMany<Item> inventory;
 
     /*public ToMany<Item> getInventory() {
@@ -29,9 +29,9 @@ public class Perso {
         this.inventory = inventory;
     }*/
 
-    public Perso(String name, int sexe) {
+    public Perso(String pseudo, int sexe) {
         this.sexe = sexe;
-        this.name = name;
+        this.pseudo = pseudo;
         this.energy = 10000;
         this.x = 0;
         this.y = 0;
@@ -121,12 +121,12 @@ public class Perso {
         this.energy = energy;
     }
 
-    public String getName() {
-        return name;
+    public String getPseudo() {
+        return pseudo;
     }
 
-    public void setName(String name) {
-        this.name = name;
+    public void setPseudo(String pseudo) {
+        this.pseudo = pseudo;
     }
 
     public String getPos() {

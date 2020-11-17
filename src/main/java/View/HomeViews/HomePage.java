@@ -11,12 +11,8 @@ import javafx.geometry.Pos;
 import javafx.scene.Parent;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
-import javafx.scene.control.PasswordField;
-import javafx.scene.control.TextField;
-import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.BorderPane;
-import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Line;
@@ -28,11 +24,9 @@ public class HomePage implements UtilsLayout, UtilsButtons, UtilsTextManager, Ut
     private Listener listener;
     private final AnchorPane root;
     private final BorderPane border;
-    private Button login;
-    private Button register;
+    private Button obMode;
+    private Button sqlMode;
     private Label connexLabel;
-    private Label accessLabel;
-    private Label questionLabel;
     private Label errorLabel;
     private Line line;
 
@@ -50,6 +44,7 @@ public class HomePage implements UtilsLayout, UtilsButtons, UtilsTextManager, Ut
         makeLine();
         makeBanner();
         initPage();
+        setButtonActions();
     }
 
     /**
@@ -69,11 +64,11 @@ public class HomePage implements UtilsLayout, UtilsButtons, UtilsTextManager, Ut
      * Créer les bouttons différents bouttons présent sur la page
      */
     private void makeButtons() {
-        login = createButton("Se connecter", null, 300, 40, 20,
+        obMode = createButton("ObjectBox Mode", null, 300, 40, 20,
                 "white", "#138c24", null, null);
-        login.setDefaultButton(true);
+        obMode.setDefaultButton(true);
 
-        register = createButton("S'inscrire", null, 300, 40, 20,
+        sqlMode = createButton("SQL Mode", null, 300, 40, 20,
                 "white", "#00aee5", null, null);
     }
 
@@ -82,12 +77,8 @@ public class HomePage implements UtilsLayout, UtilsButtons, UtilsTextManager, Ut
      * Créer les différents labels de la page
      */
     private void makeLabels() {
-        connexLabel = createLabel("Connexion", 30, 0, "black", "white", "bold",
+        connexLabel = createLabel("Database mode selection", 30, 0, "black", "white", "bold",
                 0.65);
-        accessLabel = createLabel("Accéder a TikZOverflow", 15, 0, "black", "white",
-                "bold", 0.65);
-        questionLabel = createLabel(" Pas encore membre ? ", 15, 20, "black", "white",
-                "normal", 1);
         errorLabel = createLabel("Informations incorrectes", 20, 0, "red", null,
                 "bold", 1);
         errorLabel.setVisible(false);
@@ -121,7 +112,7 @@ public class HomePage implements UtilsLayout, UtilsButtons, UtilsTextManager, Ut
     private void makeLayouts() {
         this.root.getChildren().add(this.border);
         //HBox imageBox = (HBox) createBox("H", Pos.CENTER, 0, false);
-        VBox fieldBox = (VBox) createBox("V", Pos.CENTER, 10, true, connexLabel, accessLabel, login, errorLabel, line, questionLabel, register);
+        VBox fieldBox = (VBox) createBox("V", Pos.CENTER, 10, true, connexLabel, obMode, errorLabel, line, sqlMode);
         VBox mainBox = (VBox) createBox("V", Pos.CENTER, 30, false, fieldBox);
 
         border.setCenter(mainBox);
@@ -150,8 +141,11 @@ public class HomePage implements UtilsLayout, UtilsButtons, UtilsTextManager, Ut
      * Méthode permettant de réaliser une action selon les options disponible
      */
     private void setButtonActions() {
+        this.obMode.setOnAction(e -> listener.objectBoxMode());
     }
 
     public interface Listener {
+
+        void objectBoxMode();
     }
 }

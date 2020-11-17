@@ -4,13 +4,14 @@ package Controller.HomeControllers;
 import Controller.AbstractController;
 import Model.Database.Database;
 import View.HomeViews.HomePage;
+import Controller.SwitchController;
 import View.ViewInterface;
 import javafx.stage.Stage;
 
 /**
  * Controleur de la page de connexion
  */
-public class HomeController extends AbstractController implements HomePage.Listener {
+public class HomeController extends AbstractController implements HomePage.Listener, SwitchController {
     private final HomePage homePage;
 
     /**
@@ -48,4 +49,10 @@ public class HomeController extends AbstractController implements HomePage.Liste
     public ViewInterface getView() {
         return homePage;
     }
+
+    @Override
+    public void objectBoxMode() {
+        goToSelectPage(this);
+    }
+
 }
