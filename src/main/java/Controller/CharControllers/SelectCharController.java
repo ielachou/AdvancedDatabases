@@ -27,11 +27,11 @@ public class SelectCharController extends AbstractController implements SelectCh
 
     @Override
     public void goBack() {
-
+        close();
     }
 
     @Override
     public void selectPerso() {
-
+        goToGame(this);
     }
 }

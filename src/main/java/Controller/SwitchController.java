@@ -2,8 +2,12 @@ package Controller;
 
 import Controller.CharControllers.CreateCharController;
 import Controller.CharControllers.SelectCharController;
+import Controller.GameControllers.GameController;
+import Controller.GameControllers.InventoryController;
 import View.CharView.CreateCharPage;
 import View.CharView.SelectCharPage;
+import View.GameView.GameView;
+import View.GameView.InventoryView;
 
 public interface SwitchController {
 
@@ -29,5 +33,17 @@ public interface SwitchController {
         abstractController.setBack(controller);
         abstractController.setInstance(controller.getInstance());
         abstractController.show();
+    }
+
+    default void goToGame(AbstractController controller){
+        GameView gamePage = new GameView();
+        GameController gameController = new GameController(gamePage, controller.getStage());
+        setControl(controller, gameController);
+    }
+
+    default void goToInventory(AbstractController controller){
+        InventoryView inventoryView = new InventoryView();
+        InventoryController inventoryController = new InventoryController(inventoryView, controller.getStage());
+        setControl(controller, inventoryController);
     }
 }

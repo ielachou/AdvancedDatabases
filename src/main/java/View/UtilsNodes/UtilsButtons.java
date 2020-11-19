@@ -48,11 +48,8 @@ public interface UtilsButtons {
      */
     default void createSimpleButtonWithImage(String path, Button res) {
         res.setMinSize(50, 20);
-        res.setStyle("-fx-background-color: #00cbff;" +
-                "-fx-background-radius: 80px;" +
-                "-fx-font-size: 15px;" +
-                "-fx-text-fill: white;" +
-                "-fx-font-family: Helvetica;" +
+        res.setStyle("-fx-background-color: transparent;" +
+                "-fx-border-color: transparent;" +
                 "-fx-cursor: hand;");
 
         ImageView fond = createBanner(path, 15, 15, 1);

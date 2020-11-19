@@ -38,7 +38,8 @@ public class SelectCharPage implements ViewInterface, DataView, UtilsView, Utils
 
     private void setAction() {
         this.createNewPerso.setOnAction(e -> listener.createNewPerso());
-        this.back.setOnAction(e -> listener.goBack());
+        //this.back.setOnAction(e -> listener.goBack());
+        this.back.setOnAction(e -> listener.selectPerso());
         tvTableView.setRowFactory(tv -> createRow());
     }
 
