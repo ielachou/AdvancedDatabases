@@ -2,7 +2,6 @@ package Model.Database.SQLDatabase;
 
 import Model.Database.Database;
 import Model.Database.DatabaseInfo;
-import Model.Database.ObjectBox.ObjectBoxDatabase;
 import Model.Item;
 import Model.Perso;
 
@@ -118,12 +117,50 @@ public class SQLDatabase extends Database {
 
     @Override
     public Perso getPerso(String pseudo) {
-        return null;
+        Perso res = null;
+        Connection connection = null;
+        try {
+            connection = this.connect();
+
+            ResultSet rs = this.executeSelectQuery(SQLQueries.selectPerso, connection, pseudo);
+            if (rs.next()) {
+                res = new Perso(rs.getLong("ID"), rs.getString("pseudo"), rs.getInt("x"),
+                        rs.getInt("y"), rs.getInt("energy"),
+                        rs.getInt("vitality"), rs.getInt("force"),
+                        rs.getInt("chance"), rs.getInt("intelligence"),
+                        rs.getInt("agilite"), rs.getInt("dommages"),
+                        rs.getInt("sexe")
+                       );
+            }
+            rs.close();
+            connection.close();
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+        }
+        return res;
     }
 
     @Override
     public ArrayList<Item> getInventory(Perso perso) {
-        return null;
+        ArrayList<Item> res = new ArrayList<>();
+        Connection connection = null;
+        try {
+            connection = this.connect();
+            Item tmp;
+            ResultSet rs = this.executeSelectQuery(SQLQueries.selectItem, connection, perso.getPseudo());
+            while (rs.next()) {
+
+                tmp = new Item(rs.getLong("ID") , rs.getString ("description"), rs.getString ("ownerName")
+                        , rs.getString("name"), rs.getInt("vitality"), rs.getInt("strength"), rs.getInt("chance"),
+                rs.getInt("intelligence"), rs.getInt("agility"), rs.getInt("damages"), rs.getBoolean("equiped") );
+                res.add(tmp);
+            }
+            rs.close();
+            connection.close();
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+        }
+        return res;
     }
 
     @Override
@@ -132,13 +169,29 @@ public class SQLDatabase extends Database {
     }
 
     @Override
-    public void addItem(Item item, Perso perso) {
+    public void addItem(Item item) {
+        try {
+            this.executeSql(SQLQueries.insertItem,item.getName(),
+                    item.getOwnerName(),item.getDescription(),item.getVitality(),
+                    item.getStrength(),item.getChance(),item.getIntelligence(),
+                    item.getAgility(),item.getDamages(),item.isEquiped());
 
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+        }
     }
 
     @Override
     public void addPerso(Perso perso) {
+        try {
+            this.executeSql(SQLQueries.insertPerso,perso.getPseudo(),
+                    perso.getSexe(),perso.getDommages(),perso.getAgilite(),
+                    perso.getIntelligence(),perso.getChance(),perso.getForce(),
+                    perso.getVitality(),perso.getEnergy(),perso.getY(),perso.getX());
 
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+        }
     }
 
     @Override
@@ -153,16 +206,40 @@ public class SQLDatabase extends Database {
 
     @Override
     public void removePerso(Perso perso) {
-
+        removePerso(perso.getPseudo());
     }
 
     @Override
     public void removeItem(Item item) {
+        try {
+            this.executeSql(SQLQueries.removeItem,item.getOwnerName(),item.getName());
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+        }
 
     }
 
     @Override
     public void removePerso(String pseudo) {
+        removeInventory(pseudo);
+        try {
+            this.executeSql(SQLQueries.removePerso,pseudo);
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+        }
+    }
 
+    @Override
+    public void removeInventory(Perso perso) {
+        removeInventory(perso.getPseudo());
+    }
+
+    @Override
+    public void removeInventory(String pseudo) {
+        try {
+            this.executeSql(SQLQueries.removeInventory,pseudo);
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+        }
     }
 }

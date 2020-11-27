@@ -39,7 +39,7 @@ public class ObjectBoxDatabase extends Database {
     }
 
     @Override
-    public void addItem(Item item, Perso perso) {
+    public void addItem(Item item) {
 
     }
 
@@ -70,6 +70,16 @@ public class ObjectBoxDatabase extends Database {
 
     @Override
     public void removePerso(String pseudo) {
+
+    }
+
+    @Override
+    public void removeInventory(Perso perso) {
+
+    }
+
+    @Override
+    public void removeInventory(String pseudo) {
 
     }
 }

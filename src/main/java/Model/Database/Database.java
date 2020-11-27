@@ -13,7 +13,7 @@ public abstract class Database {
 
     public abstract void requestComplicated(int i);
 
-    public abstract void addItem(Item item, Perso perso) ;
+    public abstract void addItem(Item item) ;
 
     public abstract void addPerso(Perso perso) ;
 
@@ -26,4 +26,8 @@ public abstract class Database {
     public abstract void removeItem(Item item) ;
 
     public abstract void removePerso(String pseudo);
+
+    public abstract void removeInventory(Perso perso);
+
+    public abstract void removeInventory(String pseudo);
 }

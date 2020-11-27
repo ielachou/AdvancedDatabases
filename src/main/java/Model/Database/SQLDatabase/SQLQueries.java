@@ -1,7 +1,23 @@
 package Model.Database.SQLDatabase;
 
 public enum SQLQueries implements QueryInterface {
+    selectPerso("SELECT ID,pseudo,sexe,dommages,agilite,intelligence, " +
+            "chance,force,vitality,energy,y,x  FROM persos WHERE pseudo = ? " ),
 
+    selectItem("SELECT ID,name,ownerName,description,vitality,strength,chance, " +
+            "intelligence,agility,damages,equiped  FROM items WHERE ownerName = ?"),
+
+    insertPerso("INSERT INTO persos (pseudo,sexe,dommages,agilite,intelligence," +
+            "chance,force,vitality,energy,y,x)" +
+            "VALUES (?,?,?,?,?,?,?,?,?,?,?)"),
+
+    insertItem("INSERT INTO items (name,ownerName,description,vitality,strength,chance," +
+            "intelligence,agility,damages,equiped)" +
+            "VALUES (?,?,?,?,?,?,?,?,?,?)"),
+
+    removePerso("DELETE FROM persos WHERE pseudo = ?"),
+    removeInventory("DELETE FROM items WHERE ownerName = ?"),
+    removeItem("DELETE FROM items WHERE ownerName = ? and name = ?")
     ;
     private String query = "";
 

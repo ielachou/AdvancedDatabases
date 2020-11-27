@@ -3,7 +3,7 @@ package Model.Database.SQLDatabase;
 public enum SQLTableQuery  implements  QueryInterface{
 
     tablePerso("CREATE TABLE IF NOT EXISTS persos(" +
-            "ID INTEGER NOT NULL PRIMARY KEY  AUTO_INCREMENT ," +
+            "ID INTEGER PRIMARY KEY AUTOINCREMENT," +
             "pseudo text NOT NULL," +
             "sexe INTEGER NOT NULL, " +
             "dommages INTEGER NOT NULL, " +
@@ -14,10 +14,10 @@ public enum SQLTableQuery  implements  QueryInterface{
             "vitality INTEGER NOT NULL, " +
             "energy INTEGER NOT NULL, " +
             "y INTEGER NOT NULL, " +
-            "x INTEGER NOT NULL, " +
+            "x INTEGER NOT NULL " +
             ")"),
     tableItem("CREATE TABLE IF NOT EXISTS items(" +
-            "ID INTEGER NOT NULL PRIMARY KEY AUTO_INCREMENT," +
+            "ID INTEGER PRIMARY KEY AUTOINCREMENT," +
             "name text NOT NULL," +
             "ownerName text NOT NULL ," +
             "description text NOT NULL, " +
@@ -27,7 +27,7 @@ public enum SQLTableQuery  implements  QueryInterface{
             "intelligence INTEGER NOT NULL, " +
             "agility INTEGER NOT NULL, " +
             "damages INTEGER NOT NULL, " +
-            "equiped INTEGER NOT NULL, " +
+            "equiped INTEGER NOT NULL " +
             ")")
     ;
     private String query = "";
