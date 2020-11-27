@@ -11,6 +11,10 @@ import java.io.InputStream;
 public interface DataView {
     String PATH_ICON = "Images/Icons/icon.jpg";
     String PATH_BG = "Images/Backgrounds/fbg.jpg";
+    String PATH_LARROW = "Images/arrows/fleche.png";
+    String PATH_RARROW ="Images/arrows/petite_fleche_droite.png";
+    String PATH_UARROW ="Images/arrows/petite_fleche_haut.png";
+    String PATH_DARROW ="Images/arrows/petite_fleche_bas.png";
 
     /**
      * Méthode permettant de mettre une image en arrière plan
