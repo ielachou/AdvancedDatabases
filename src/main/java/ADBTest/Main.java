@@ -6,8 +6,7 @@ package ADBTest;
 public class ADBTest.Main {
 
     public static void main(String[] args) {
-        BoxStore store = MyObjectBox.builder().name("objectbox-notes-db").build();
-        Box<Perso> box = store.boxFor(Perso.class);
+
 
         Perso perso = new Perso("Achille", 0);
         //box.put(perso);
