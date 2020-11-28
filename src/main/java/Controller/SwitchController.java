@@ -4,6 +4,8 @@ import Controller.CharControllers.CreateCharController;
 import Controller.CharControllers.SelectCharController;
 import Controller.GameControllers.GameController;
 import Controller.GameControllers.InventoryController;
+import Model.Database.ObjectBox.ObjectBoxDatabase;
+import Model.Database.SQLDatabase.SQLDatabase;
 import View.CharView.CreateCharPage;
 import View.CharView.SelectCharPage;
 import View.GameView.GameView;
@@ -16,9 +18,14 @@ public interface SwitchController {
      *
      * @param controller Controleur actuel
      */
-    default void goToSelectPage(AbstractController controller) {
+    default void goToSelectPage(AbstractController controller, boolean mode) {
         SelectCharPage sPage = new SelectCharPage();
         SelectCharController sControler = new SelectCharController(sPage, controller.getStage());
+        if(mode){
+            sControler.setDb(ObjectBoxDatabase.getInstance());
+        }else{
+            sControler.setDb(SQLDatabase.getInstance());
+        }
         setControl(controller, sControler);
     }
 

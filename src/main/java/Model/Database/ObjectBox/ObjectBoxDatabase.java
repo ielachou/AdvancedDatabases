@@ -95,4 +95,10 @@ public class ObjectBoxDatabase extends Database {
         Box<Item> box = store.boxFor(Item.class);
         box.remove( box.query().equal(Item_.ownerName, pseudo).build().find() );
     }
+
+    @Override
+    public ArrayList<Perso> getPersos(int number) {
+        Box<Perso> box = store.boxFor(Perso.class);
+        return (ArrayList<Perso>) box.query().less(Perso_.__ID_PROPERTY, number).build().find();
+    }
 }

@@ -26,7 +26,7 @@ public class MainController {
         setStage(primaryStage);
         HomePage loginPage = new HomePage();
         homeControler = new HomeController(loginPage, primaryStage);
-        //homeControler.setDb(Database.getInstance(DatabaseInfo.PATHDB));
+
         homeControler.setInstance(instance);
     }
 

@@ -120,6 +120,10 @@ public class SelectCharPage implements ViewInterface, DataView, UtilsView, Utils
         tvTableView.setColumnResizePolicy(TableView.CONSTRAINED_RESIZE_POLICY);
     }
 
+    public void addChar(PersoInfo ... perso){
+        tvTableView.getItems().addAll(perso);
+    }
+
     @Override
     public Parent getRoot() {
         return root;
@@ -141,7 +145,7 @@ public class SelectCharPage implements ViewInterface, DataView, UtilsView, Utils
 
     public interface PersoInfo{
         String getPseudo();
-        String getEnergy();
+        int getEnergy();
         String getPos();
     }
 }

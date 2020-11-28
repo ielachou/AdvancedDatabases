@@ -51,8 +51,8 @@ public class HomeController extends AbstractController implements HomePage.Liste
     }
 
     @Override
-    public void objectBoxMode() {
-        goToSelectPage(this);
+    public void objectBoxMode(boolean mode) {
+        goToSelectPage(this, mode);
     }
 
 }

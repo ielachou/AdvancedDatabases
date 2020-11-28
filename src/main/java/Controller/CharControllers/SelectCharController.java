@@ -2,9 +2,12 @@ package Controller.CharControllers;
 
 import Controller.AbstractController;
 import Controller.SwitchController;
+import Model.Perso;
 import View.CharView.SelectCharPage;
 import View.ViewInterface;
 import javafx.stage.Stage;
+
+import java.util.ArrayList;
 
 public class SelectCharController extends AbstractController implements SelectCharPage.Listener, SwitchController {
     private final SelectCharPage selectCharPage;
@@ -33,5 +36,19 @@ public class SelectCharController extends AbstractController implements SelectCh
     @Override
     public void selectPerso() {
         goToGame(this);
+    }
+
+    @Override
+    public void begin(){
+
+        ArrayList<Perso> listePersos = getDb().getPersos(50);
+        Perso[] persoTab = new Perso[0];
+        if (listePersos != null){
+            persoTab = new Perso[listePersos.size()];
+            for(int i = 0; i < listePersos.size(); i++){
+                persoTab[i] = listePersos.get(i);
+            }
+        }
+        this.selectCharPage.addChar(persoTab);
     }
 }

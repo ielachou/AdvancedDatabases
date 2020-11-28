@@ -1,11 +1,12 @@
 package Model;
 
 
+import View.CharView.SelectCharPage;
 import io.objectbox.annotation.Entity;
 import io.objectbox.annotation.Id;
 
 @Entity
-public class Perso {
+public class Perso implements SelectCharPage.PersoInfo {
 
 
     @Id long id;

@@ -242,4 +242,31 @@ public class SQLDatabase extends Database {
             throwables.printStackTrace();
         }
     }
+
+    @Override
+    public ArrayList<Perso> getPersos(int number) {
+        ArrayList<Perso> res = new ArrayList<>();
+        Connection connection = null;
+        try {
+            connection = this.connect();
+            Perso tmp;
+            ResultSet rs = this.executeSelectQuery(SQLQueries.selectXPersos, connection, number);
+            while (rs.next()) {
+
+                tmp = new Perso(rs.getLong("ID"), rs.getString("pseudo"), rs.getInt("x"),
+                        rs.getInt("y"), rs.getInt("energy"),
+                        rs.getInt("vitality"), rs.getInt("force"),
+                        rs.getInt("chance"), rs.getInt("intelligence"),
+                        rs.getInt("agilite"), rs.getInt("dommages"),
+                        rs.getInt("sexe")
+                );
+                res.add(tmp);
+            }
+            rs.close();
+            connection.close();
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+        }
+        return res;
+    }
 }

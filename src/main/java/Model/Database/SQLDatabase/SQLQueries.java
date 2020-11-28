@@ -17,8 +17,12 @@ public enum SQLQueries implements QueryInterface {
 
     removePerso("DELETE FROM persos WHERE pseudo = ?"),
     removeInventory("DELETE FROM items WHERE ownerName = ?"),
-    removeItem("DELETE FROM items WHERE ownerName = ? and name = ?")
+    removeItem("DELETE FROM items WHERE ownerName = ? and name = ?"),
+    selectXPersos("SELECT ID,pseudo,sexe,dommages,agilite,intelligence, " +
+                          "chance,force,vitality,energy,y,x  FROM persos WHERE ID < ? ")
     ;
+
+
     private String query = "";
 
 

@@ -141,11 +141,12 @@ public class HomePage implements UtilsLayout, UtilsButtons, UtilsTextManager, Ut
      * Méthode permettant de réaliser une action selon les options disponible
      */
     private void setButtonActions() {
-        this.obMode.setOnAction(e -> listener.objectBoxMode());
+        this.obMode.setOnAction(e -> listener.objectBoxMode(true));
+        this.sqlMode.setOnAction(e -> listener.objectBoxMode(false));
     }
 
     public interface Listener {
 
-        void objectBoxMode();
+        void objectBoxMode(boolean mode);
     }
 }

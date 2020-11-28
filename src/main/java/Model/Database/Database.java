@@ -30,4 +30,6 @@ public abstract class Database {
     public abstract void removeInventory(Perso perso);
 
     public abstract void removeInventory(String pseudo);
+
+    public abstract ArrayList<Perso> getPersos(int number);
 }
