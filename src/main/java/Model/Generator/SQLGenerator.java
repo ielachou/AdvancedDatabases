@@ -34,7 +34,6 @@ public class SQLGenerator {
                 System.out.println("too many values");
                 return;
             }
-            int randomNum;
             int i = 0;
             String perso_name = "";
             Perso toAdd;
