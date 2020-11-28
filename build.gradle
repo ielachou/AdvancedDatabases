@@ -42,6 +42,14 @@ apply plugin: 'io.objectbox'
 test {
     useJUnitPlatform()
 }
+// enable debug output for plugin
+objectbox {
+    debug true
+}
+// enable debug output for annotation processor
+tasks.withType(JavaCompile) {
+    options.compilerArgs += [ "-Aobjectbox.debug=true" ]
+}
 
 
 javafx {

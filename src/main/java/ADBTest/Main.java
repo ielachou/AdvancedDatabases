@@ -2,6 +2,7 @@ package ADBTest;
 
 
 import Controller.MainController;
+import Model.Database.ObjectBox.ObjectBoxDatabase;
 import Model.Generator.SQLGenerator;
 import javafx.application.Application;
 import javafx.application.HostServices;
@@ -19,6 +20,8 @@ public class Main extends Application {
     @Override
     public void start(Stage primaryStage) {
         //SQLGenerator.generatePersos(5000,SQLDatabase.getInstance());
+        //SQLGenerator.generatePersos(5000, ObjectBoxDatabase.getInstance());
+
         HostServices instance = getHostServices();
         MainController mainController = new MainController(primaryStage, instance);
         mainController.show();
