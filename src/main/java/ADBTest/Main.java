@@ -1,26 +1,8 @@
 package ADBTest;
 
 
-
-/*
-public class ADBTest.Main {
-
-    public static void main(String[] args) {
-
-
-        Perso perso = new Perso("Achille", 0);
-        //box.put(perso);
-
-        System.out.println(box.count() + " notes in ObjectBox database:");
-        Perso persoo = box.query().equal(Perso_.name, "Achille").build().findFirst();
-        System.out.println(persoo.getName());
-        store.close();
-    }
-
-}
-*/
-
 import Controller.MainController;
+import Model.Generator.SQLGenerator;
 import javafx.application.Application;
 import javafx.application.HostServices;
 import javafx.stage.Stage;
@@ -36,6 +18,7 @@ public class Main extends Application {
      */
     @Override
     public void start(Stage primaryStage) {
+        //SQLGenerator.generatePersos(5000);
         HostServices instance = getHostServices();
         MainController mainController = new MainController(primaryStage, instance);
         mainController.show();

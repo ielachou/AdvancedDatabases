@@ -16,17 +16,8 @@ public class Item {
 
     public Item(long id, String description, String ownerName, String name, int vitality, int strength, int chance,
                 int intelligence, int agility, int damages, boolean equiped) {
+        this(description, ownerName, name, vitality, strength, chance, intelligence, agility, damages, equiped);
         this.id = id;
-        this.description = description;
-        this.ownerName = ownerName;
-        this.name = name;
-        this.vitality = vitality;
-        this.strength = strength;
-        this.chance = chance;
-        this.intelligence = intelligence;
-        this.agility = agility;
-        this.damages = damages;
-        this.equiped = equiped;
     }
 
     public Item(String name, String ownerName) {
@@ -40,6 +31,20 @@ public class Item {
         this.agility = 0;
         this.damages = 0;
         this.equiped = false;
+    }
+
+    public Item(String description, String ownerName, String name, int vitality, int strength, int chance,
+                int intelligence, int agility, int damages, boolean equiped){
+        this.description = description;
+        this.ownerName = ownerName;
+        this.name = name;
+        this.vitality = vitality;
+        this.strength = strength;
+        this.chance = chance;
+        this.intelligence = intelligence;
+        this.agility = agility;
+        this.damages = damages;
+        this.equiped = equiped;
     }
 
     @Override
