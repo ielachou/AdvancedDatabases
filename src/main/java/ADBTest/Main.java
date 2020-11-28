@@ -18,7 +18,7 @@ public class Main extends Application {
      */
     @Override
     public void start(Stage primaryStage) {
-        //SQLGenerator.generatePersos(5000);
+        //SQLGenerator.generatePersos(5000,SQLDatabase.getInstance());
         HostServices instance = getHostServices();
         MainController mainController = new MainController(primaryStage, instance);
         mainController.show();

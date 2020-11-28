@@ -1,12 +1,14 @@
 package Model;
 
 
-//@Entity
+import io.objectbox.annotation.Entity;
+import io.objectbox.annotation.Id;
+
+@Entity
 public class Perso {
 
 
-    //@Id
-    long id;
+    @Id long id;
 
     int x;
     int y;

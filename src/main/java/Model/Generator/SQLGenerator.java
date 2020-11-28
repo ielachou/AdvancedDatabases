@@ -1,7 +1,6 @@
 package Model.Generator;
 
 import Model.Database.Database;
-import Model.Database.SQLDatabase.SQLDatabase;
 import Model.Item;
 import Model.Perso;
 
@@ -13,9 +12,8 @@ import java.util.Scanner;
 import java.util.concurrent.ThreadLocalRandom;
 
 public class SQLGenerator {
-    private static Database db = SQLDatabase.getInstance();
 
-    public static void generatePersos(int number){
+    public static void generatePersos(int number, Database db){
 
 
         File name_file =
@@ -41,7 +39,7 @@ public class SQLGenerator {
                 //System.out.println(sc_name.nextLine() + " " + randomNum);
                 perso_name = sc_name.nextLine();
                 toAdd = new Perso(perso_name, randInt(0,1));
-                generateItems(perso_name, monsters);
+                generateItems(perso_name, monsters, db);
                 db.addPerso(toAdd);
                 i++;
             }
@@ -63,7 +61,7 @@ public class SQLGenerator {
     }
 
 
-    public static void generateItems(String pseudo, List<String> monsters){
+    public static void generateItems(String pseudo, List<String> monsters, Database db){
 
         String monsterName;
         String itemType;

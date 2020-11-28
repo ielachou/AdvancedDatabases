@@ -1,7 +1,12 @@
 package Model;
 
+import io.objectbox.annotation.Entity;
+import io.objectbox.annotation.Id;
+
+@Entity
 public class Item {
-    private long id;
+    @Id private long id;
+
     private String description;
     private String ownerName;
     private String name;

@@ -14,7 +14,7 @@ public class DatabaseTest extends TestCase {
     @Test
     public void TestAll(){
         System.out.println("hdfsuqdhushdushu");
-        Database db = SQLDatabase.getInstance();
+        Database db = ObjectBoxDatabase.getInstance();
         String pseudo = "Eren";
         Perso perso = new Perso(pseudo,1);
         db.addPerso(perso);
