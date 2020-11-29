@@ -38,8 +38,8 @@ public class SelectCharPage implements ViewInterface, DataView, UtilsView, Utils
 
     private void setAction() {
         this.createNewPerso.setOnAction(e -> listener.createNewPerso());
-        //this.back.setOnAction(e -> listener.goBack());
-        this.back.setOnAction(e -> listener.selectPerso());
+        this.back.setOnAction(e -> listener.goBack());
+        //this.back.setOnAction(e -> listener.selectPerso());
         tvTableView.setRowFactory(tv -> createRow());
     }
 
@@ -47,7 +47,7 @@ public class SelectCharPage implements ViewInterface, DataView, UtilsView, Utils
         TableRow<PersoInfo> row = new TableRow<>();
         row.setOnMouseClicked(e -> {
             if (e.getClickCount() == 2 && e.getButton() == MouseButton.PRIMARY && (!row.isEmpty())){
-                listener.selectPerso();
+                listener.selectPerso(row.getItem());
             }
         });
         return row;
@@ -140,7 +140,7 @@ public class SelectCharPage implements ViewInterface, DataView, UtilsView, Utils
 
         void goBack();
 
-        void selectPerso();
+        void selectPerso(PersoInfo persoInfo);
     }
 
     public interface PersoInfo{

@@ -34,13 +34,15 @@ public class SelectCharController extends AbstractController implements SelectCh
     }
 
     @Override
-    public void selectPerso() {
+    public void selectPerso(SelectCharPage.PersoInfo persoInfo) {
+        setPersoInfo(getDb().getPerso(persoInfo.getPseudo()));
         goToGame(this);
     }
 
     @Override
     public void begin(){
 
+        System.out.println(getDb() != null);
         ArrayList<Perso> listePersos = getDb().getPersos(50);
         Perso[] persoTab = new Perso[0];
         if (listePersos != null){

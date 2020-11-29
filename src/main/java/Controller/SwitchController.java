@@ -32,6 +32,7 @@ public interface SwitchController {
     default void goToCreateChar(AbstractController controller){
         CreateCharPage createPage = new CreateCharPage();
         CreateCharController createController = new CreateCharController(createPage, controller.getStage());
+
         createController.setBack(controller);
         createController.show();
     }
@@ -39,6 +40,10 @@ public interface SwitchController {
     default void setControl(AbstractController controller, AbstractController abstractController){
         abstractController.setBack(controller);
         abstractController.setInstance(controller.getInstance());
+        if(controller.getDb()!=null) {
+            abstractController.setDb(controller.getDb());
+        }
+        abstractController.setPersoInfo(controller.getPersoInfo());
         abstractController.show();
     }
 

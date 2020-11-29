@@ -55,4 +55,9 @@ public class HomeController extends AbstractController implements HomePage.Liste
         goToSelectPage(this, mode);
     }
 
+    @Override
+    public void begin(){
+
+    }
+
 }

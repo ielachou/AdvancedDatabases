@@ -1,10 +1,11 @@
 package Model;
 
+import View.GameView.InventoryView;
 import io.objectbox.annotation.Entity;
 import io.objectbox.annotation.Id;
 
 @Entity
-public class Item {
+public class Item implements InventoryView.ItemInfo {
     @Id private long id;
 
     private String description;
@@ -86,6 +87,16 @@ public class Item {
 
     public String getName() {
         return name;
+    }
+
+    public String itemString(){
+        return getName() + "\n \n" + getDescription() +
+                "\nVitality : " + getVitality() +
+                "\nStrength : " + getStrength() +
+                "\nChance : " + getChance()+
+                "\nAgility : " + getAgility() +
+                "\nIntelligence : " + getIntelligence() +
+                "\nDamages : " + getDamages() ;
     }
 
     public void setName(String name) {

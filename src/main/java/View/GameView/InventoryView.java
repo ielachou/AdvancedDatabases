@@ -1,5 +1,6 @@
 package View.GameView;
 
+import View.CharView.SelectCharPage;
 import View.DataView;
 import View.UtilsNodes.UtilsButtons;
 import View.UtilsNodes.UtilsLayout;
@@ -9,6 +10,7 @@ import View.ViewInterface;
 import javafx.geometry.Pos;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.input.MouseButton;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
@@ -24,6 +26,10 @@ public class InventoryView implements UtilsLayout, UtilsButtons, UtilsTextManage
     private Label listTitle;
     private TextArea txtArea;
 
+    public TextArea getTxtArea(){
+        return txtArea;
+    }
+
 
     public InventoryView(){
         this.border = new BorderPane();
@@ -34,6 +40,7 @@ public class InventoryView implements UtilsLayout, UtilsButtons, UtilsTextManage
         makeTitle();
         makeTextArea();
         makeLayouts();
+        setButtonActions();
 
 
     }
@@ -52,13 +59,13 @@ public class InventoryView implements UtilsLayout, UtilsButtons, UtilsTextManage
 
 
     private void makeTextArea() {
-        String s = "qdddqdqds";
+        String s = "Click on an item to check its stats";
         txtArea = createTextArea(s, false, 300, 200, 500, 500);
     }
 
     private void setTableview() {
-        TableColumn<ItemInfo, String> name = new TableColumn<>("Item");
-        name.setCellValueFactory(new PropertyValueFactory<>("Item"));
+        TableColumn<ItemInfo, String> name = new TableColumn<>("Name");
+        name.setCellValueFactory(new PropertyValueFactory<>("Name"));
         TableColumn<ItemInfo, String> equiped = new TableColumn<>("Equiped");
         equiped.setCellValueFactory(new PropertyValueFactory<>("Equiped"));
         this.tvTableView.getColumns().addAll(name, equiped);
@@ -70,6 +77,9 @@ public class InventoryView implements UtilsLayout, UtilsButtons, UtilsTextManage
                 null, null);
     }
 
+    public void addItems(ItemInfo... items){
+        tvTableView.getItems().addAll(items);
+    }
 
 
     /**
@@ -87,14 +97,28 @@ public class InventoryView implements UtilsLayout, UtilsButtons, UtilsTextManage
 
     private void setButtonActions() {
         this.back.setOnAction(e -> listener.back());
+        tvTableView.setRowFactory(tv -> createRow());
+    }
+
+    private TableRow<ItemInfo> createRow() {
+
+        TableRow<ItemInfo> row = new TableRow<>();
+        row.setOnMouseClicked(e -> {
+            if (e.getClickCount() == 1 && e.getButton() == MouseButton.PRIMARY && (!row.isEmpty())){
+                listener.updateText(row.getItem());
+            }
+        });
+        return row;
     }
 
     public interface Listener{
         void back();
+        void updateText(ItemInfo item);
     }
 
     public interface ItemInfo{
-        String getItem();
-        String getEquiped();
+        String getName();
+        boolean isEquiped();
+        String itemString();
     }
 }

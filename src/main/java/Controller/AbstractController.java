@@ -2,6 +2,7 @@ package Controller;
 
 
 import Model.Database.Database;
+import Model.Perso;
 import javafx.application.HostServices;
 import javafx.stage.Stage;
 
@@ -13,6 +14,7 @@ public abstract class AbstractController implements UtilsController {
     private HostServices instance;
     private UtilsController back;
     private Database db;
+    private Perso persoInfo;
 
     /**
      * Constructeur d'un controleur
@@ -40,6 +42,10 @@ public abstract class AbstractController implements UtilsController {
 
     public void setDb(Database database){
         this.db = database;
+    }
+
+    public void setPersoInfo(Perso perso){
+        this.persoInfo = perso;
     }
 
 
@@ -72,5 +78,9 @@ public abstract class AbstractController implements UtilsController {
 
     public void setInstance(HostServices hostInstance) {
         this.instance = hostInstance;
+    }
+
+    protected Perso getPersoInfo() {
+        return persoInfo;
     }
 }
