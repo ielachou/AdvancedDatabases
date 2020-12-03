@@ -141,6 +141,10 @@ public class Perso implements SelectCharPage.PersoInfo {
         this.energy = energy;
     }
 
+    public long getID(){
+        return id;
+    }
+
     public String getPseudo() {
         return pseudo;
     }

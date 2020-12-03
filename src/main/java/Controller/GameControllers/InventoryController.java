@@ -28,7 +28,7 @@ public class InventoryController extends AbstractController implements Inventory
 
     @Override
     public void back() {
-
+        close();
     }
 
     @Override

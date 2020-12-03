@@ -22,7 +22,6 @@ public class ObjectBoxDatabase extends Database {
 
     private ObjectBoxDatabase(String db){
         this.store = MyObjectBox.builder().name(db).build();
-
     }
 
     @Override

@@ -43,7 +43,7 @@ public class SelectCharController extends AbstractController implements SelectCh
     public void begin(){
 
         System.out.println(getDb() != null);
-        ArrayList<Perso> listePersos = getDb().getPersos(50);
+        ArrayList<Perso> listePersos = getDb().getPersos(5000);
         Perso[] persoTab = new Perso[0];
         if (listePersos != null){
             persoTab = new Perso[listePersos.size()];

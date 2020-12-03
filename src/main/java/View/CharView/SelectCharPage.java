@@ -110,13 +110,15 @@ public class SelectCharPage implements ViewInterface, DataView, UtilsView, Utils
      * Méthode permettant de modifier la tableView et les informations associées à cette dernière
      */
     public void setTableview() {
+        TableColumn<PersoInfo, String> id = new TableColumn<>("ID");
+        id.setCellValueFactory(new PropertyValueFactory<>("ID"));
         TableColumn<PersoInfo, String> name = new TableColumn<>("Pseudo");
         name.setCellValueFactory(new PropertyValueFactory<>("Pseudo"));
         TableColumn<PersoInfo, String> pos = new TableColumn<>("Position");
         pos.setCellValueFactory(new PropertyValueFactory<>("Pos"));
         TableColumn<PersoInfo, String> energy = new TableColumn<>("Energie");
         energy.setCellValueFactory(new PropertyValueFactory<>("Energy"));
-        this.tvTableView.getColumns().addAll(name, pos, energy);
+        this.tvTableView.getColumns().addAll(id, name, pos, energy);
         tvTableView.setColumnResizePolicy(TableView.CONSTRAINED_RESIZE_POLICY);
     }
 
@@ -147,5 +149,6 @@ public class SelectCharPage implements ViewInterface, DataView, UtilsView, Utils
         String getPseudo();
         int getEnergy();
         String getPos();
+        long getID();
     }
 }
