@@ -1,7 +1,6 @@
 package Model.Database;
 
 import Model.Database.ObjectBox.ObjectBoxDatabase;
-import Model.Database.SQLDatabase.SQLDatabase;
 import Model.Item;
 import Model.Perso;
 import junit.framework.TestCase;
@@ -14,7 +13,7 @@ public class DatabaseTest extends TestCase {
     @Test
     public void TestAll(){
         System.out.println("hdfsuqdhushdushu");
-        Database db = ObjectBoxDatabase.getInstance();
+        Database db = ObjectBoxDatabase.getInstance(DatabaseInfo.PATH_OBJDBTEST);
         String pseudo = "Eren";
         Perso perso = new Perso(pseudo,1);
         db.addPerso(perso);

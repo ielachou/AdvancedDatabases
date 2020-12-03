@@ -14,8 +14,12 @@ public class ObjectBoxDatabase extends Database {
     private final BoxStore store;
 
     public static ObjectBoxDatabase getInstance() {
+        return getInstance(DatabaseInfo.PATH_OBJDB);
+    }
+
+    public static ObjectBoxDatabase getInstance(String pathObjdbtest) {
         if(instance == null){
-            instance = new ObjectBoxDatabase(DatabaseInfo.PATH_OBJDB);
+            instance = new ObjectBoxDatabase(pathObjdbtest);
         }
         return instance;
     }
@@ -23,6 +27,8 @@ public class ObjectBoxDatabase extends Database {
     private ObjectBoxDatabase(String db){
         this.store = MyObjectBox.builder().name(db).build();
     }
+
+
 
     @Override
     public Perso getPerso(String pseudo) {
@@ -40,7 +46,6 @@ public class ObjectBoxDatabase extends Database {
 
     @Override
     public void requestComplicated(int i) {
-
     }
 
     @Override
