@@ -196,12 +196,29 @@ public class SQLDatabase extends Database {
 
     @Override
     public void updatePerso(Perso perso) {
+        try {
+            this.executeSql(SQLQueries.updatePerso,perso.getPseudo(),
+                    perso.getSexe(),perso.getDommages(),perso.getAgilite(),
+                    perso.getIntelligence(),perso.getChance(),perso.getForce(),
+                    perso.getVitality(),perso.getEnergy(),perso.getY(),perso.getX(),perso.getID());
 
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+        }
     }
 
     @Override
     public void updateItem(Item item) {
 
+        try {
+            this.executeSql(SQLQueries.updateItem,item.getName(),
+                    item.getOwnerName(),item.getDescription(),item.getVitality(),
+                    item.getStrength(),item.getChance(),item.getIntelligence(),
+                    item.getAgility(),item.getDamages(),item.isEquiped(),item.getId());
+
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+        }
     }
 
     @Override

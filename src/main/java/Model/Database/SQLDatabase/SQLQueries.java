@@ -19,8 +19,11 @@ public enum SQLQueries implements QueryInterface {
     removeInventory("DELETE FROM items WHERE ownerName = ?"),
     removeItem("DELETE FROM items WHERE ownerName = ? and name = ?"),
     selectXPersos("SELECT ID,pseudo,sexe,dommages,agilite,intelligence, " +
-                          "chance,force,vitality,energy,y,x  FROM persos WHERE ID < ? ")
-    ;
+                          "chance,force,vitality,energy,y,x  FROM persos WHERE ID < ? "),
+    updatePerso("UPDATE persos SET pseudo = ?,sexe = ?,dommages = ?,agilite = ?,intelligence = ?," +
+                            "chance = ? ,force = ?,vitality = ?,energy = ?,y = ?,x = ? WHERE ID = ?"),
+    updateItem("UPDATE items SET name = ?,ownerName = ?,description = ?,vitality = ?,strength = ?,chance = ?," +
+                 "intelligence = ?,agility = ?,damages = ?,equiped = ? WHERE ID = ?");
 
 
     private String query = "";

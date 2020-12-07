@@ -63,12 +63,14 @@ public class ObjectBoxDatabase extends Database {
 
     @Override
     public void updatePerso(Perso perso) {
-
+        Box<Perso> box = store.boxFor(Perso.class);
+        box.put(perso);
     }
 
     @Override
     public void updateItem(Item item) {
-
+        Box<Item> box = store.boxFor(Item.class);
+        box.put(item);
     }
 
     @Override
