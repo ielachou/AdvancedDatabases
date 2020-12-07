@@ -6,6 +6,8 @@ public enum SQLQueries implements QueryInterface {
 
     selectItem("SELECT ID,name,ownerName,description,vitality,strength,chance, " +
             "intelligence,agility,damages,equiped  FROM items WHERE ownerName = ?"),
+    selectAnItem("SELECT ID,name,ownerName,description,vitality,strength,chance, " +
+            "intelligence,agility,damages,equiped  FROM items WHERE ownerName = ? and name = ?"),
 
     insertPerso("INSERT INTO persos (pseudo,sexe,dommages,agilite,intelligence," +
             "chance,force,vitality,energy,y,x)" +
@@ -22,7 +24,7 @@ public enum SQLQueries implements QueryInterface {
                           "chance,force,vitality,energy,y,x  FROM persos WHERE ID < ? "),
     updatePerso("UPDATE persos SET pseudo = ?,sexe = ?,dommages = ?,agilite = ?,intelligence = ?," +
                             "chance = ? ,force = ?,vitality = ?,energy = ?,y = ?,x = ? WHERE ID = ?"),
-    updateItem("UPDATE items SET name = ?,ownerName = ?,description = ?,vitality = ?,strength = ?,chance = ?," +
+    updateItem("UPDATE items SET ID = ?, name = ?,ownerName = ?,description = ?,vitality = ?,strength = ?,chance = ?," +
                  "intelligence = ?,agility = ?,damages = ?,equiped = ? WHERE ID = ?");
 
 

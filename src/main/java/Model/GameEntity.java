@@ -88,4 +88,12 @@ public class GameEntity {
     public long getID(){
         return id;
     }
+
+    public void setId(long id) {
+        this.id = id;
+    }
+
+    public void setEnergy(int energy) {
+        this.energy = energy;
+    }
 }

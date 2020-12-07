@@ -70,6 +70,8 @@ public class Perso extends GameEntity implements SelectCharPage.PersoInfo {
         this.pseudo = pseudo;
     }
 
+
+
     @Override
     public String getPos() {
         return "(" + x + ", " + y + ")";

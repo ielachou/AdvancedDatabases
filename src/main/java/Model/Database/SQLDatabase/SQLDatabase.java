@@ -15,8 +15,12 @@ public class SQLDatabase extends Database {
 
 
     public static SQLDatabase getInstance() {
+        return getInstance(DatabaseInfo.PATH_SQLDB);
+    }
+
+    public static SQLDatabase getInstance(String pathSqldbtest) {
         if(instance == null){
-            instance = new SQLDatabase(DatabaseInfo.PATH_SQLDB);
+            instance = new SQLDatabase(pathSqldbtest);
         }
         return instance;
     }
@@ -30,6 +34,7 @@ public class SQLDatabase extends Database {
             e.printStackTrace();
         }
     }
+
 
     private void createTable() throws SQLException {
         this.executeSql(SQLTableQuery.tableItem);
@@ -176,9 +181,42 @@ public class SQLDatabase extends Database {
                     item.getStrength(),item.getChance(),item.getIntelligence(),
                     item.getAgility(),item.getDamages(),item.isEquiped());
 
+            item.setId(getItemId(item));
+
         } catch (SQLException throwables) {
             throwables.printStackTrace();
         }
+    }
+
+    private long getItemId(Item item) {
+        Item temp = getItem(item.getName(),item.getOwnerName());
+        return temp != null ? temp.getId() : -1;
+    }
+
+    private long getPersoId(Perso perso) {
+        Perso temp = getPerso(perso.getPseudo());
+        return  temp != null ? temp.getID() : -1;
+    }
+
+    private Item getItem(String name, String ownerName) {
+        Item res = null;
+        Connection connection = null;
+        try {
+            connection = this.connect();
+            ResultSet rs = this.executeSelectQuery(SQLQueries.selectAnItem, connection, ownerName,name);
+            if (rs.next()) {
+
+                res = new Item(rs.getLong("ID") , rs.getString ("description"), rs.getString ("ownerName")
+                        , rs.getString("name"), rs.getInt("vitality"), rs.getInt("strength"), rs.getInt("chance"),
+                        rs.getInt("intelligence"), rs.getInt("agility"), rs.getInt("damages"), rs.getBoolean("equiped") );
+
+            }
+            rs.close();
+            connection.close();
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+        }
+        return res;
     }
 
     @Override
@@ -188,11 +226,14 @@ public class SQLDatabase extends Database {
                     perso.getSexe(),perso.getDommages(),perso.getAgilite(),
                     perso.getIntelligence(),perso.getChance(),perso.getForce(),
                     perso.getVitality(),perso.getEnergy(),perso.getY(),perso.getX());
+            perso.setId(getPersoId(perso));
 
         } catch (SQLException throwables) {
             throwables.printStackTrace();
         }
     }
+
+
 
     @Override
     public void updatePerso(Perso perso) {
@@ -211,7 +252,8 @@ public class SQLDatabase extends Database {
     public void updateItem(Item item) {
 
         try {
-            this.executeSql(SQLQueries.updateItem,item.getName(),
+            System.out.println("UPDATE ID = " + item.getId());
+            this.executeSql(SQLQueries.updateItem,item.getId(),item.getName(),
                     item.getOwnerName(),item.getDescription(),item.getVitality(),
                     item.getStrength(),item.getChance(),item.getIntelligence(),
                     item.getAgility(),item.getDamages(),item.isEquiped(),item.getId());

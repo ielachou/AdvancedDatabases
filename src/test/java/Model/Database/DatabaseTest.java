@@ -1,6 +1,7 @@
 package Model.Database;
 
 import Model.Database.ObjectBox.ObjectBoxDatabase;
+import Model.Database.SQLDatabase.SQLDatabase;
 import Model.Item;
 import Model.Perso;
 import junit.framework.TestCase;
@@ -13,7 +14,8 @@ public class DatabaseTest extends TestCase {
     @Test
     public void TestAll(){
         System.out.println("hdfsuqdhushdushu");
-        Database db = ObjectBoxDatabase.getInstance(DatabaseInfo.PATH_OBJDBTEST);
+        Database db = SQLDatabase.getInstance(DatabaseInfo.PATH_SQLDBTEST);
+        //Database db = ObjectBoxDatabase.getInstance(DatabaseInfo.PATH_OBJDBTEST);
         String pseudo = "Eren";
         Perso perso = new Perso(pseudo,1);
         db.addPerso(perso);
@@ -23,6 +25,12 @@ public class DatabaseTest extends TestCase {
         db.addItem(item);
 
         ArrayList<Item> inventory = db.getInventory(perso);
+        System.out.println(inventory);
+
+        item.setName("loooul");
+        db.updateItem(item);
+
+        inventory = db.getInventory(perso);
         System.out.println(inventory);
 
         item = new Item("Kjidsjijiiiii","Eren");
