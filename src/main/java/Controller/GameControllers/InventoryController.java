@@ -2,11 +2,8 @@ package Controller.GameControllers;
 
 import Controller.AbstractController;
 import Controller.SwitchController;
-import Model.Item;
-import Model.Perso;
-import View.GameView.GameView;
+import Model.Game.Item;
 import View.GameView.InventoryView;
-import View.ViewInterface;
 import javafx.stage.Stage;
 
 import java.util.ArrayList;

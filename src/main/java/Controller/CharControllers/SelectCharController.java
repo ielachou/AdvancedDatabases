@@ -2,7 +2,7 @@ package Controller.CharControllers;
 
 import Controller.AbstractController;
 import Controller.SwitchController;
-import Model.Perso;
+import Model.Game.Perso;
 import View.CharView.SelectCharPage;
 import View.ViewInterface;
 import javafx.stage.Stage;

@@ -1,4 +1,4 @@
-package Model;
+package Model.Game;
 
 import io.objectbox.annotation.BaseEntity;
 import io.objectbox.annotation.Id;

@@ -1,8 +1,8 @@
 package Model.Generator;
 
 import Model.Database.Database;
-import Model.Item;
-import Model.Perso;
+import Model.Game.Item;
+import Model.Game.Perso;
 
 import java.io.File;
 import java.io.FileNotFoundException;

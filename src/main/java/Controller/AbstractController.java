@@ -2,7 +2,7 @@ package Controller;
 
 
 import Model.Database.Database;
-import Model.Perso;
+import Model.Game.Perso;
 import javafx.application.HostServices;
 import javafx.stage.Stage;
 

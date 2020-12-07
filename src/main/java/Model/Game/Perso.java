@@ -1,9 +1,8 @@
-package Model;
+package Model.Game;
 
 
 import View.CharView.SelectCharPage;
 import io.objectbox.annotation.Entity;
-import io.objectbox.annotation.Id;
 
 @Entity
 public class Perso extends GameEntity implements SelectCharPage.PersoInfo {

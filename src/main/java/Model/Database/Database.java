@@ -1,7 +1,7 @@
 package Model.Database;
 
-import Model.Item;
-import Model.Perso;
+import Model.Game.Item;
+import Model.Game.Perso;
 
 import java.util.ArrayList;
 

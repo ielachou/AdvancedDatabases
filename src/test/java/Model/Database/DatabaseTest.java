@@ -1,9 +1,8 @@
 package Model.Database;
 
-import Model.Database.ObjectBox.ObjectBoxDatabase;
 import Model.Database.SQLDatabase.SQLDatabase;
-import Model.Item;
-import Model.Perso;
+import Model.Game.Item;
+import Model.Game.Perso;
 import junit.framework.TestCase;
 import org.junit.jupiter.api.Test;
 

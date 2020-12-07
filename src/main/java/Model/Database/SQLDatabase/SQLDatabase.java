@@ -2,8 +2,8 @@ package Model.Database.SQLDatabase;
 
 import Model.Database.Database;
 import Model.Database.DatabaseInfo;
-import Model.Item;
-import Model.Perso;
+import Model.Game.Item;
+import Model.Game.Perso;
 
 import java.sql.*;
 import java.util.ArrayList;

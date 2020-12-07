@@ -1,4 +1,4 @@
-package Model;
+package Model.Game;
 
 import View.GameView.InventoryView;
 import io.objectbox.annotation.Entity;

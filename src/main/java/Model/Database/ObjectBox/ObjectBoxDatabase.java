@@ -3,6 +3,8 @@ package Model.Database.ObjectBox;
 import Model.*;
 import Model.Database.Database;
 import Model.Database.DatabaseInfo;
+import Model.Game.Item;
+import Model.Game.Perso;
 import io.objectbox.Box;
 import io.objectbox.BoxStore;
 
