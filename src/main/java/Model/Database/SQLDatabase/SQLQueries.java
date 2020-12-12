@@ -33,7 +33,9 @@ public enum SQLQueries implements QueryInterface {
                  "intelligence = ?,agility = ?,damages = ?,equiped = ? WHERE ID = ?"),
     insertPersoRelation("INSERT INTO fightPerso (FIGHT_ID,PERSO_ID) VALUES (?,?)"),
     insertMonsterRelation("INSERT INTO fightMonster (MONSTER_ID) VALUES (?)"),
-    selectFight("SELECT  fightPerso.* , " +
+
+
+    selectFight("SELECT  fp.* , " +
             "persos.ID as PID,persos.pseudo as pseudo,persos.sexe as sexe" +
             ",persos.dommages as Pdommages,persos.agilite as Pagilite," +
             "persos.intelligence as Pintelligence,persos.chance as Pchance," +
@@ -43,11 +45,20 @@ public enum SQLQueries implements QueryInterface {
             ",monsters.dommages as Mdommages,monsters.agilite as Magilite," +
             "monsters.intelligence as Mintelligence,monsters.chance as Mchance," +
             "monsters.force as Mforce,monsters.vitality as Mvitality" +
-            ",monsters.energy as Menergy,monsters.y as My,monsters.x as Mx  FROM fightPerso " +
-            "INNER JOIN fightMonster as fightMonster ON fightMonster.FIGHT_ID = fightPerso.FIGHT_ID "+
-            "INNER JOIN persos as persos ON persos.ID = fightPerso.PERSO_ID "  +
-            "INNER JOIN monsters as monsters ON fightMonster.FIGHT_ID = monsters.ID " +
-            "WHERE fightPerso.PERSO_ID = ? ORDER BY fightPerso.FIGHT_ID"),
+            ",monsters.energy as Menergy,monsters.y as My,monsters.x as Mx  " +
+                " FROM " +
+            "fightPerso as fp " +
+            "INNER JOIN fightMonster as fightMonster ON fightMonster.FIGHT_ID = fp.FIGHT_ID "+
+            "INNER JOIN persos as persos ON persos.ID = fp.PERSO_ID " +
+            "INNER JOIN monsters as monsters ON fp.FIGHT_ID = monsters.ID " +
+            "WHERE EXISTS( " +
+                    "SELECT * " +
+                        "FROM fightPerso as fp2 " +
+                            "WHERE fp2.PERSO_ID = ? AND fp.FIGHT_ID == fp2.FIGHT_ID " +
+                    ") " +
+            "ORDER BY fp.FIGHT_ID"),
+
+
     getFightID("SELECT FIGHT_ID FROM fightMonster WHERE MONSTER_ID = ?");
 
 
