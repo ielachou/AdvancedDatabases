@@ -1,14 +1,17 @@
 package Model.Database.ObjectBox;
 
-import Model.*;
+
 import Model.Database.Database;
 import Model.Database.DatabaseInfo;
-import Model.Game.Item;
-import Model.Game.Perso;
+import Model.Game.*;
+import Model.Game.Interactions.Fight;
+import Model.Game.Interactions.Fight_;
 import io.objectbox.Box;
 import io.objectbox.BoxStore;
+import io.objectbox.query.QueryBuilder;
 
 import java.util.ArrayList;
+import java.util.List;
 
 public class ObjectBoxDatabase extends Database {
 
@@ -35,7 +38,7 @@ public class ObjectBoxDatabase extends Database {
     @Override
     public Perso getPerso(String pseudo) {
         Box<Perso> box = store.boxFor(Perso.class);
-        Perso perso = box.query().equal(Perso_.pseudo, pseudo).build().findFirst();
+        Perso perso = box.query().equal(Perso_.name, pseudo).build().findFirst();
         return perso;
     }
 
@@ -76,21 +79,31 @@ public class ObjectBoxDatabase extends Database {
     }
 
     @Override
+    public void removePerso(String pseudo) {
+        this.removePerso(getPerso(pseudo));
+    }
+
+    @Override
     public void removePerso(Perso perso) {
         Box<Perso> box = store.boxFor(Perso.class);
         this.removeInventory(perso);
         box.remove(perso);
     }
 
+    public void removeAllPersos(){
+        Box<Perso> box = store.boxFor(Perso.class);
+        box.removeAll();
+    }
+
+    public void removeAllItems(){
+        Box<Item> box = store.boxFor(Item.class);
+        box.removeAll();
+    }
+
     @Override
     public void removeItem(Item item) {
         Box<Item> box = store.boxFor(Item.class);
         box.remove(item);
-    }
-
-    @Override
-    public void removePerso(String pseudo) {
-        this.removePerso(getPerso(pseudo));
     }
 
     @Override
@@ -107,6 +120,32 @@ public class ObjectBoxDatabase extends Database {
     @Override
     public ArrayList<Perso> getPersos(int number) {
         Box<Perso> box = store.boxFor(Perso.class);
-        return (ArrayList<Perso>) box.query().less(Perso_.__ID_PROPERTY, number).build().find();
+        if(number != -1) {
+            return (ArrayList<Perso>) box.query().less(Perso_.__ID_PROPERTY, number).build().find();
+        }else{
+            return (ArrayList<Perso>) box.query().build().find();
+        }
+    }
+
+    @Override
+    public void addFight(Fight fight) {
+        Box<Fight> box = store.boxFor(Fight.class);
+        box.put(fight);
+    }
+
+    @Override
+    public ArrayList<Fight> getFights(String perso) {
+        Box<Fight> box = store.boxFor(Fight.class);
+
+        QueryBuilder<Fight> qb = box.query();
+        qb.link(Fight_.PersoList).equal(Perso_.name, perso);
+        List<Fight> fightList = qb.build().find();
+        return (ArrayList<Fight>) fightList;
+    }
+
+    @Override
+    public void removeAllFights() {
+        Box<Fight> box = store.boxFor(Fight.class);
+        box.removeAll();
     }
 }

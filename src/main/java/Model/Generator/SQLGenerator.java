@@ -32,22 +32,32 @@ public class SQLGenerator {
                 System.out.println("too many values");
                 return;
             }
+            List<String> persos = new ArrayList<>();
             int i = 0;
-            String perso_name = "";
-            Perso toAdd;
-            while (i < number) {
-                //System.out.println(sc_name.nextLine() + " " + randomNum);
-                perso_name = sc_name.nextLine();
-                toAdd = new Perso(perso_name, randInt(0,1));
-                generateItems(perso_name, monsters, db);
-                db.addPerso(toAdd);
+            while(i < number){
+                persos.add(sc_name.nextLine());
                 i++;
+            }
+            i = 0;
+            int j = 0;
+            String perso_name;
+            Perso toAdd;
+            while (j < 5) {
+                System.out.println(j);
+                while (i < number) {
+                    //System.out.println(sc_name.nextLine() + " " + randomNum);
+                    perso_name = persos.get(i) + j;
+                    toAdd = new Perso(perso_name, randInt(0, 1));
+                    toAdd = generateItems(toAdd, monsters, db);
+                    db.addPerso(toAdd);
+                    i++;
+                }
+                i = 0;
+                j++;
             }
         } catch (FileNotFoundException e) {
             e.printStackTrace();
         }
-
-
     }
 
     private static List<String> getListFromMonster(Scanner sc_monsters) {
@@ -61,7 +71,7 @@ public class SQLGenerator {
     }
 
 
-    public static void generateItems(String pseudo, List<String> monsters, Database db){
+    public static Perso generateItems(Perso perso, List<String> monsters, Database db){
 
         String monsterName;
         String itemType;
@@ -70,17 +80,30 @@ public class SQLGenerator {
         for(int i = 0; i < 5; i++){
             monsterName = monsters.get(randInt(0,10));
             itemType = weapon_types[randInt(0,8)];
-            toAdd = randItem(pseudo, monsterName + "'s " + itemType, true);
+            toAdd = randItem(perso.getName(), monsterName + "'s " + itemType, true);
+            perso = updateStats(perso, toAdd);
             db.addItem(toAdd);
         }
 
         for (int i = 0; i < 10; i++){
             monsterName = monsters.get(randInt(0,10));
             itemType = weapon_types[randInt(0,8)];
-            toAdd = randItem(pseudo, monsterName + "'s " + itemType, false);
+            toAdd = randItem(perso.getName(), monsterName + "'s " + itemType, false);
             db.addItem(toAdd);
         }
 
+        return perso;
+    }
+
+    private static Perso updateStats(Perso perso, Item toAdd) {
+        perso.setAgilite(perso.getAgilite() + toAdd.getAgility());
+        perso.setChance(perso.getChance() + toAdd.getChance());
+        perso.setVitality(perso.getVitality() + toAdd.getVitality());
+        perso.setIntelligence(perso.getIntelligence() + toAdd.getIntelligence());
+        perso.setForce(perso.getForce() + toAdd.getStrength());
+        perso.setDommages(perso.getDommages() + toAdd.getDamages());
+
+        return perso;
     }
 
     private static int randInt(int min, int max){

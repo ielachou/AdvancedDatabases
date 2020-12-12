@@ -9,16 +9,7 @@ public class Perso extends GameEntity implements SelectCharPage.PersoInfo {
 
 
     int sexe; // 0M 1F
-    String pseudo;
-    //ToMany<Item> inventory;
 
-    /*public ToMany<Item> getInventory() {
-        return inventory;
-    }
-
-    public void setInventory(ToMany<Item> inventory) {
-        this.inventory = inventory;
-    }*/
 
     public Perso(long id, String pseudo, int x, int y, int energy, int vitality,
                  int force, int chance, int intelligence, int agilite,
@@ -34,12 +25,12 @@ public class Perso extends GameEntity implements SelectCharPage.PersoInfo {
         this.agilite = agilite;
         this.dommages = dommages;
         this.sexe = sexe;
-        this.pseudo = pseudo;
+        this.name = pseudo;
     }
 
     public Perso(String pseudo, int sexe) {
         this.sexe = sexe;
-        this.pseudo = pseudo;
+        this.name = pseudo;
         this.energy = 10000;
         this.x = 0;
         this.y = 0;
@@ -62,11 +53,11 @@ public class Perso extends GameEntity implements SelectCharPage.PersoInfo {
     }
 
     public String getPseudo() {
-        return pseudo;
+        return name;
     }
 
     public void setPseudo(String pseudo) {
-        this.pseudo = pseudo;
+        this.name = pseudo;
     }
 
 

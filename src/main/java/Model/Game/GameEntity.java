@@ -5,8 +5,7 @@ import io.objectbox.annotation.Id;
 
 @BaseEntity
 public class GameEntity {
-    @Id
-    long id;
+    @Id long id;
     int x;
     int y;
     int energy;
@@ -16,6 +15,15 @@ public class GameEntity {
     int intelligence = 0;
     int agilite = 0;
     int dommages = 0;
+    String name;
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
 
     public int getVitality() {
         return vitality;

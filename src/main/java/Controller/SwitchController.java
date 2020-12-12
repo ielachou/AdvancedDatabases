@@ -33,8 +33,7 @@ public interface SwitchController {
         CreateCharPage createPage = new CreateCharPage();
         CreateCharController createController = new CreateCharController(createPage, controller.getStage());
 
-        createController.setBack(controller);
-        createController.show();
+        setControl(controller, createController);
     }
 
     default void setControl(AbstractController controller, AbstractController abstractController){

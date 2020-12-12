@@ -2,6 +2,7 @@ package Model.Database.SQLDatabase;
 
 import Model.Database.Database;
 import Model.Database.DatabaseInfo;
+import Model.Game.Interactions.Fight;
 import Model.Game.Item;
 import Model.Game.Perso;
 
@@ -250,9 +251,7 @@ public class SQLDatabase extends Database {
 
     @Override
     public void updateItem(Item item) {
-
         try {
-            System.out.println("UPDATE ID = " + item.getId());
             this.executeSql(SQLQueries.updateItem,item.getId(),item.getName(),
                     item.getOwnerName(),item.getDescription(),item.getVitality(),
                     item.getStrength(),item.getChance(),item.getIntelligence(),
@@ -266,16 +265,6 @@ public class SQLDatabase extends Database {
     @Override
     public void removePerso(Perso perso) {
         removePerso(perso.getPseudo());
-    }
-
-    @Override
-    public void removeItem(Item item) {
-        try {
-            this.executeSql(SQLQueries.removeItem,item.getOwnerName(),item.getName());
-        } catch (SQLException throwables) {
-            throwables.printStackTrace();
-        }
-
     }
 
     @Override
@@ -303,6 +292,16 @@ public class SQLDatabase extends Database {
     }
 
     @Override
+    public void removeItem(Item item) {
+        try {
+            this.executeSql(SQLQueries.removeItem,item.getOwnerName(),item.getName());
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+        }
+
+    }
+
+    @Override
     public ArrayList<Perso> getPersos(int number) {
         ArrayList<Perso> res = new ArrayList<>();
         Connection connection = null;
@@ -327,5 +326,30 @@ public class SQLDatabase extends Database {
             throwables.printStackTrace();
         }
         return res;
+    }
+
+    @Override
+    public void addFight(Fight fight) {
+        ;
+    }
+
+    @Override
+    public ArrayList<Fight> getFights(String perso) {
+        return null;
+    }
+
+    @Override
+    public void removeAllFights() {
+
+    }
+
+    @Override
+    public void removeAllPersos() {
+
+    }
+
+    @Override
+    public void removeAllItems() {
+
     }
 }

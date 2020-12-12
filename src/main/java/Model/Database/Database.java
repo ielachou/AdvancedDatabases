@@ -1,5 +1,6 @@
 package Model.Database;
 
+import Model.Game.Interactions.Fight;
 import Model.Game.Item;
 import Model.Game.Perso;
 
@@ -32,4 +33,14 @@ public abstract class Database {
     public abstract void removeInventory(String pseudo);
 
     public abstract ArrayList<Perso> getPersos(int number);
+
+    public abstract void addFight(Fight fight);
+
+    public abstract ArrayList<Fight> getFights(String perso);
+
+    public abstract void removeAllFights();
+
+    public abstract void removeAllPersos();
+
+    public abstract void removeAllItems();
 }

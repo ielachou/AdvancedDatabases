@@ -82,8 +82,8 @@ public class CreateCharPage implements DataView, UtilsButtons, UtilsLayout, Util
     }
 
     private void makeCombo() {
-        String[] s = {"Male", "Female", "Other"};
-        comboSexe = createComboBox(s, 180, 30, 300, 60, "Masculin", "white");
+        String[] s = {"Male", "Female"};
+        comboSexe = createComboBox(s, 180, 30, 300, 60, "Male", "white");
     }
 
     private void makeText() {
@@ -128,6 +128,14 @@ public class CreateCharPage implements DataView, UtilsButtons, UtilsLayout, Util
         sexeLabel = standardLabel("Gender: ");
         //passwordLabel = standardLabel("Mot de passe: ");
         //repasswordLabel = standardLabel("Réécrire mdp: ");
+    }
+
+    public TextField getPseudoField(){
+        return pseudoField;
+    }
+
+    public ComboBox getComboSexe() {
+        return comboSexe;
     }
 
     /**

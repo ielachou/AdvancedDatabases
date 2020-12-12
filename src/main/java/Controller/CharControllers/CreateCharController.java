@@ -2,6 +2,7 @@ package Controller.CharControllers;
 
 import Controller.AbstractController;
 import Controller.SwitchController;
+import Model.Game.Perso;
 import View.CharView.CreateCharPage;
 import View.ViewInterface;
 import javafx.stage.Stage;
@@ -28,6 +29,13 @@ public class CreateCharController extends AbstractController implements CreateCh
 
     @Override
     public void create() {
+        Perso toAdd;
+        if(createCharPage.getComboSexe().getValue() == "Male"){
+            toAdd = new Perso(createCharPage.getPseudoField().getText(), 0);
+        }else{
+            toAdd = new Perso(createCharPage.getPseudoField().getText(), 1);
+        }
+        getDb().addPerso(toAdd);
 
     }
 }
