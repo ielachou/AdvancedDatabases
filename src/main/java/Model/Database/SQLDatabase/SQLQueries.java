@@ -3,6 +3,8 @@ package Model.Database.SQLDatabase;
 public enum SQLQueries implements QueryInterface {
     selectPerso("SELECT ID,pseudo,sexe,dommages,agilite,intelligence, " +
             "chance,force,vitality,energy,y,x  FROM persos WHERE pseudo = ? " ),
+    selectMonster("SELECT ID,name,rank,dommages,agilite,intelligence, " +
+            "chance,force,vitality,energy,y,x  FROM monsters WHERE  rank = ? AND name = ?" ),
 
     selectItem("SELECT ID,name,ownerName,description,vitality,strength,chance, " +
             "intelligence,agility,damages,equiped  FROM items WHERE ownerName = ?"),
@@ -10,6 +12,9 @@ public enum SQLQueries implements QueryInterface {
             "intelligence,agility,damages,equiped  FROM items WHERE ownerName = ? and name = ?"),
 
     insertPerso("INSERT INTO persos (pseudo,sexe,dommages,agilite,intelligence," +
+            "chance,force,vitality,energy,y,x)" +
+            "VALUES (?,?,?,?,?,?,?,?,?,?,?)"),
+    insertMonster("INSERT INTO monsters (name,rank,dommages,agilite,intelligence," +
             "chance,force,vitality,energy,y,x)" +
             "VALUES (?,?,?,?,?,?,?,?,?,?,?)"),
 
@@ -25,7 +30,25 @@ public enum SQLQueries implements QueryInterface {
     updatePerso("UPDATE persos SET pseudo = ?,sexe = ?,dommages = ?,agilite = ?,intelligence = ?," +
                             "chance = ? ,force = ?,vitality = ?,energy = ?,y = ?,x = ? WHERE ID = ?"),
     updateItem("UPDATE items SET ID = ?, name = ?,ownerName = ?,description = ?,vitality = ?,strength = ?,chance = ?," +
-                 "intelligence = ?,agility = ?,damages = ?,equiped = ? WHERE ID = ?");
+                 "intelligence = ?,agility = ?,damages = ?,equiped = ? WHERE ID = ?"),
+    insertPersoRelation("INSERT INTO fightPerso (FIGHT_ID,PERSO_ID) VALUES (?,?)"),
+    insertMonsterRelation("INSERT INTO fightMonster (MONSTER_ID) VALUES (?)"),
+    selectFight("SELECT  fightPerso.* , " +
+            "persos.ID as PID,persos.pseudo as pseudo,persos.sexe as sexe" +
+            ",persos.dommages as Pdommages,persos.agilite as Pagilite," +
+            "persos.intelligence as Pintelligence,persos.chance as Pchance," +
+            "persos.force as Pforce,persos.vitality as Pvitality" +
+            ",persos.energy as Penergy,persos.y as Py,persos.x as Px"+
+            ",monsters.ID as MID,monsters.name as name,monsters.rank as rank" +
+            ",monsters.dommages as Mdommages,monsters.agilite as Magilite," +
+            "monsters.intelligence as Mintelligence,monsters.chance as Mchance," +
+            "monsters.force as Mforce,monsters.vitality as Mvitality" +
+            ",monsters.energy as Menergy,monsters.y as My,monsters.x as Mx  FROM fightPerso " +
+            "INNER JOIN fightMonster as fightMonster ON fightMonster.FIGHT_ID = fightPerso.FIGHT_ID "+
+            "INNER JOIN persos as persos ON persos.ID = fightPerso.PERSO_ID "  +
+            "INNER JOIN monsters as monsters ON fightMonster.FIGHT_ID = monsters.ID " +
+            "WHERE fightPerso.PERSO_ID = ? ORDER BY fightPerso.FIGHT_ID"),
+    getFightID("SELECT FIGHT_ID FROM fightMonster WHERE MONSTER_ID = ?");
 
 
     private String query = "";

@@ -16,6 +16,14 @@ public class Monster extends GameEntity {
 
     }
 
+
+    public Monster(long id, String name, int x, int y, int energy, int vitality, int force, int chance, int intelligence, int agilite, int dommages, int rank) {
+
+        super(id, name, x, y, energy, vitality, force, chance, intelligence, agilite, dommages);
+        this.rank = rank;
+
+    }
+
     public int getRank() {
         return rank;
     }

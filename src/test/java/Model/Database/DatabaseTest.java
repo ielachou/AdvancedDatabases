@@ -18,8 +18,8 @@ public class DatabaseTest extends TestCase {
     @Test
     public void TestAll(){
         System.out.println("hdfsuqdhushdushu");
-        //Database db = SQLDatabase.getInstance(DatabaseInfo.PATH_SQLDBTEST);
-        Database db = ObjectBoxDatabase.getInstance(DatabaseInfo.PATH_OBJDBTEST);
+        Database db = SQLDatabase.getInstance(DatabaseInfo.PATH_SQLDBTEST);
+        //Database db = ObjectBoxDatabase.getInstance(DatabaseInfo.PATH_OBJDBTEST);
         String pseudo = "Eren";
         Perso perso = new Perso(pseudo,1);
         db.addPerso(perso);

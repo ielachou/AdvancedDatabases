@@ -76,7 +76,7 @@
     },
     {
       "id": "2:7337360106262376721",
-      "lastPropertyId": "12:7671620525905381152",
+      "lastPropertyId": "13:5739947602471419046",
       "name": "Perso",
       "properties": [
         {
@@ -146,23 +146,138 @@
           "flags": 4
         },
         {
-          "id": "12:7671620525905381152",
-          "name": "pseudo",
+          "id": "13:5739947602471419046",
+          "name": "name",
           "type": 9
+        }
+      ],
+      "relations": []
+    },
+    {
+      "id": "3:8665713207687645813",
+      "lastPropertyId": "3:4484909654210162109",
+      "name": "Fight",
+      "properties": [
+        {
+          "id": "1:675937581928961581",
+          "name": "id",
+          "type": 6,
+          "flags": 1
+        },
+        {
+          "id": "2:6940724054694770878",
+          "name": "finality",
+          "type": 1,
+          "flags": 4
+        },
+        {
+          "id": "3:4484909654210162109",
+          "name": "MobsListId",
+          "indexId": "1:5421806982678259387",
+          "type": 11,
+          "flags": 1548,
+          "relationTarget": "Monster"
+        }
+      ],
+      "relations": [
+        {
+          "id": "1:967966514281732043",
+          "name": "PersoList",
+          "targetId": "2:7337360106262376721"
+        }
+      ]
+    },
+    {
+      "id": "4:9177850379681256668",
+      "lastPropertyId": "12:3626675907543205775",
+      "name": "Monster",
+      "properties": [
+        {
+          "id": "1:8688402022151535163",
+          "name": "id",
+          "type": 6,
+          "flags": 1
+        },
+        {
+          "id": "2:768627213093788661",
+          "name": "x",
+          "type": 5,
+          "flags": 4
+        },
+        {
+          "id": "3:6185585167341218659",
+          "name": "y",
+          "type": 5,
+          "flags": 4
+        },
+        {
+          "id": "4:1640833124819843463",
+          "name": "energy",
+          "type": 5,
+          "flags": 4
+        },
+        {
+          "id": "5:7650056538773054019",
+          "name": "vitality",
+          "type": 5,
+          "flags": 4
+        },
+        {
+          "id": "6:1947512717785041304",
+          "name": "force",
+          "type": 5,
+          "flags": 4
+        },
+        {
+          "id": "7:5009688725263465654",
+          "name": "chance",
+          "type": 5,
+          "flags": 4
+        },
+        {
+          "id": "8:4498147217741673415",
+          "name": "intelligence",
+          "type": 5,
+          "flags": 4
+        },
+        {
+          "id": "9:4576012023305554540",
+          "name": "agilite",
+          "type": 5,
+          "flags": 4
+        },
+        {
+          "id": "10:3589359032196654053",
+          "name": "dommages",
+          "type": 5,
+          "flags": 4
+        },
+        {
+          "id": "11:523307448934355731",
+          "name": "name",
+          "type": 9
+        },
+        {
+          "id": "12:3626675907543205775",
+          "name": "rank",
+          "type": 5,
+          "flags": 4
         }
       ],
       "relations": []
     }
   ],
-  "lastEntityId": "2:7337360106262376721",
-  "lastIndexId": "0:0",
-  "lastRelationId": "0:0",
+  "lastEntityId": "4:9177850379681256668",
+  "lastIndexId": "1:5421806982678259387",
+  "lastRelationId": "1:967966514281732043",
   "lastSequenceId": "0:0",
   "modelVersion": 5,
   "modelVersionParserMinimum": 5,
   "retiredEntityUids": [],
   "retiredIndexUids": [],
-  "retiredPropertyUids": [],
+  "retiredPropertyUids": [
+    7671620525905381152
+  ],
   "retiredRelationUids": [],
   "version": 1
 }

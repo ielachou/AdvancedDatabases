@@ -26,11 +26,11 @@ public class Fight {
     public String toString() {
         String s = "Fight{" +
                 "PersoList=";
-        for (Perso perso : PersoList) {
+        for (Perso perso : getPersos()) {
             s += perso.getPseudo() + ", ";
         }
 
-        s += "MobsList=" + MobsList.getTarget().getName() +
+        s += "MobsList=" + getMonster().getName() +
                 '}';
 
         return s;
@@ -40,10 +40,38 @@ public class Fight {
 
     }
 
+    public Fight(long id) {
+        this.id = id;
+    }
+
     public Fight(Monster boss, Perso... persos) {
+        setMonster(boss);
+
+        addPersos(persos);
+    }
+
+    public void setMonster(Monster boss) {
         MobsList.setTarget(boss);
-        
+    }
+
+    public void addPersos(Perso... persos) {
         Collections.addAll(PersoList, persos);
+    }
+
+    public Iterable<? extends Perso> getPersos() {
+        return PersoList;
+    }
+
+    public Monster getMonster() {
+        return MobsList.getTarget();
+    }
+
+    public long getID() {
+        return id;
+    }
+
+    public void setID(long fightID) {
+        this.id = fightID;
     }
 
     /*

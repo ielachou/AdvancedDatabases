@@ -17,6 +17,25 @@ public class GameEntity {
     int dommages = 0;
     String name;
 
+
+    protected GameEntity(long id, String pseudo, int x, int y, int energy, int vitality, int force, int chance, int intelligence, int agilite, int dommages) {
+        this.id = id;
+        this.x = x;
+        this.y = y;
+        this.energy = energy;
+        this.vitality = vitality;
+        this.force = force;
+        this.chance = chance;
+        this.intelligence = intelligence;
+        this.agilite = agilite;
+        this.dommages = dommages;
+        this.name = pseudo;
+    }
+
+    public GameEntity() {
+
+    }
+
     public String getName() {
         return name;
     }

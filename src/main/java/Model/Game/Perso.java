@@ -14,21 +14,15 @@ public class Perso extends GameEntity implements SelectCharPage.PersoInfo {
     public Perso(long id, String pseudo, int x, int y, int energy, int vitality,
                  int force, int chance, int intelligence, int agilite,
                  int dommages, int sexe) {
-        this.id = id;
-        this.x = x;
-        this.y = y;
-        this.energy = energy;
-        this.vitality = vitality;
-        this.force = force;
-        this.chance = chance;
-        this.intelligence = intelligence;
-        this.agilite = agilite;
-        this.dommages = dommages;
+        super(id, pseudo, x, y, energy, vitality, force, chance, intelligence, agilite, dommages);
         this.sexe = sexe;
-        this.name = pseudo;
     }
 
+
+
+
     public Perso(String pseudo, int sexe) {
+        super();
         this.sexe = sexe;
         this.name = pseudo;
         this.energy = 10000;
@@ -37,6 +31,7 @@ public class Perso extends GameEntity implements SelectCharPage.PersoInfo {
     }
 
     public Perso(){
+        super();
 
     }
 

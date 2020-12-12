@@ -3,7 +3,9 @@ package Model.Database.SQLDatabase;
 import Model.Database.Database;
 import Model.Database.DatabaseInfo;
 import Model.Game.Interactions.Fight;
+import Model.Game.Interactions.SQLFight;
 import Model.Game.Item;
+import Model.Game.Monster;
 import Model.Game.Perso;
 
 import java.sql.*;
@@ -40,6 +42,9 @@ public class SQLDatabase extends Database {
     private void createTable() throws SQLException {
         this.executeSql(SQLTableQuery.tableItem);
         this.executeSql(SQLTableQuery.tablePerso);
+        this.executeSql(SQLTableQuery.tableMonster);
+        this.executeSql(SQLTableQuery.tableFightPerso);
+        this.executeSql(SQLTableQuery.tableFightMonster);
     }
 
     private void createNewDatabase() throws SQLException, ClassNotFoundException {
@@ -195,10 +200,13 @@ public class SQLDatabase extends Database {
     }
 
     private long getPersoId(Perso perso) {
-        Perso temp = getPerso(perso.getPseudo());
-        return  temp != null ? temp.getID() : -1;
+        return getPersoId(perso.getPseudo());
     }
 
+    private long getPersoId(String pseudo) {
+        Perso temp = getPerso(pseudo);
+        return  temp != null ? temp.getID() : -1;
+    }
     private Item getItem(String name, String ownerName) {
         Item res = null;
         Connection connection = null;
@@ -330,26 +338,178 @@ public class SQLDatabase extends Database {
 
     @Override
     public void addFight(Fight fight) {
-        ;
+        Monster monster = fight.getMonster();
+        long monsterId = getMonsterId(monster);
+        if(monsterId == -1){
+            addMonster(monster);
+            monsterId = monster.getID();
+        }
+
+        addRelationFightMonster(monsterId);
+
+        fight.setID(getFightID(monsterId));
+        for(Perso perso : fight.getPersos()){
+            long persoId = getPersoId(perso);
+            if(persoId == -1){
+                addPerso(perso);
+                persoId = perso.getID();
+            }
+            addRelationFightPersos(fight.getID(),persoId );
+        }
+    }
+
+    private long getFightID(long id) {
+        long res = -1;
+        Connection connection = null;
+        try {
+            connection = this.connect();
+            ResultSet rs = this.executeSelectQuery(SQLQueries.getFightID, connection, id);
+            if (rs.next()) {
+                res = rs.getLong("FIGHT_ID");
+            }
+            rs.close();
+            connection.close();
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+        }
+        return res;
+    }
+
+    private void addRelationFightPersos(long id, long idPerso) {
+        try {
+            this.executeSql(SQLQueries.insertPersoRelation,id,idPerso);
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+        }
+
+    }
+
+    private void addRelationFightMonster( long idMonster) {
+        try {
+            this.executeSql(SQLQueries.insertMonsterRelation,idMonster);
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+        }
+    }
+
+    private void addMonster(Monster monster) {
+        try {
+            this.executeSql(SQLQueries.insertMonster,monster.getName(),
+                    monster.getRank(),monster.getDommages(),monster.getAgilite(),
+                    monster.getIntelligence(),monster.getChance(),monster.getForce(),
+                    monster.getVitality(),monster.getEnergy(),monster.getY(),monster.getX());
+            monster.setId(getMonsterId(monster));
+
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+        }
+    }
+
+    private long getMonsterId(Monster monster) {
+        Monster temp = getMonster(monster.getRank(),monster.getName());
+        return  temp != null ? temp.getID() : -1;
+    }
+
+    private Monster getMonster(int rank, String name) {
+        Monster res = null;
+        Connection connection = null;
+        try {
+            connection = this.connect();
+
+            ResultSet rs = this.executeSelectQuery(SQLQueries.selectMonster, connection, rank,name);
+            if (rs.next()) {
+                res = new Monster(rs.getLong("ID"), rs.getString("name"), rs.getInt("x"),
+                        rs.getInt("y"), rs.getInt("energy"),
+                        rs.getInt("vitality"), rs.getInt("force"),
+                        rs.getInt("chance"), rs.getInt("intelligence"),
+                        rs.getInt("agilite"), rs.getInt("dommages"),
+                        rs.getInt("rank")
+                );
+            }
+            rs.close();
+            connection.close();
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+        }
+        return res;
     }
 
     @Override
     public ArrayList<Fight> getFights(String perso) {
-        return null;
+        ArrayList<Fight> res = new ArrayList<>();
+        Connection connection = null;
+        long old_id = -1;
+        try {
+            Fight temp = null;
+            connection = this.connect();
+            ResultSet rs = this.executeSelectQuery(SQLQueries.selectFight, connection, getPersoId(perso));
+            while (rs.next()) {
+                long new_id = rs.getLong("FIGHT_ID");
+                if(old_id != new_id){
+                    if(temp != null){
+                        res.add(temp);
+                    }
+                    temp = new SQLFight(new_id);
+                    temp.setMonster( new Monster(rs.getLong("MID"), rs.getString("name"), rs.getInt("Mx"),
+                            rs.getInt("My"), rs.getInt("Menergy"),
+                            rs.getInt("Mvitality"), rs.getInt("Mforce"),
+                            rs.getInt("Mchance"), rs.getInt("Mintelligence"),
+                            rs.getInt("Magilite"), rs.getInt("Mdommages"),
+                            rs.getInt("rank")));
+                    old_id = new_id;
+                }
+                temp.addPersos( new Perso(rs.getLong("PID"), rs.getString("pseudo"), rs.getInt("Px"),
+                        rs.getInt("Py"), rs.getInt("Penergy"),
+                        rs.getInt("Pvitality"), rs.getInt("Pforce"),
+                        rs.getInt("Pchance"), rs.getInt("Pintelligence"),
+                        rs.getInt("Pagilite"), rs.getInt("Pdommages"),
+                        rs.getInt("sexe")
+                ));
+            }
+            if(temp != null){
+                res.add(temp);
+            }
+            rs.close();
+            connection.close();
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+        }
+        return res;
     }
 
     @Override
     public void removeAllFights() {
-
+        try {
+            this.executeSql(SQLTableQuery.dropFightPerso);
+            this.executeSql(SQLTableQuery.dropFightMonster);
+            this.executeSql(SQLTableQuery.tableFightPerso);
+            this.executeSql(SQLTableQuery.tableFightMonster);
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+        }
     }
 
     @Override
     public void removeAllPersos() {
 
+
+        try {
+            this.executeSql(SQLTableQuery.dropPersos);
+            this.executeSql(SQLTableQuery.tablePerso);
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+        }
+        removeAllItems();
     }
 
     @Override
     public void removeAllItems() {
 
+        try {
+            this.executeSql(SQLTableQuery.dropItem);
+            this.executeSql(SQLTableQuery.tableItem);
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+        }
     }
 }
