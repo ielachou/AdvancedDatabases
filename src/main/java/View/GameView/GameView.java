@@ -1,6 +1,5 @@
 package View.GameView;
 
-import Controller.GameControllers.GameController;
 import View.DataView;
 import View.UtilsNodes.UtilsButtons;
 import View.UtilsNodes.UtilsLayout;
@@ -18,10 +17,7 @@ public class GameView implements UtilsLayout, UtilsButtons, UtilsTextManager, Ut
     private Listener listener;
     private final AnchorPane root;
     private final BorderPane border;
-    private Button left_map_change;
-    private Button right_map_change;
-    private Button up_map_change;
-    private Button down_map_change;
+    private Button fight_btn;
     private Button inventory;
 
     public GameView() {
@@ -35,21 +31,13 @@ public class GameView implements UtilsLayout, UtilsButtons, UtilsTextManager, Ut
 
     private void setButtonActions() {
         inventory.setOnAction(e -> listener.inventory());
+        fight_btn.setOnAction(e -> listener.fight());
     }
 
     private void makeButtons() {
-        left_map_change = createButton("", PATH_LARROW,
-                140, 50, 15, "black",
-                null, null, null);
-        /*right_map_change = createButton("", PATH_RARROW,
-                140, 50, 15, "black",
-                null, null, null);
-        up_map_change = createButton("", PATH_UARROW,
+        fight_btn = createButton("Fight", null,
                 140, 50, 15, "black",
                 "white", null, null);
-        down_map_change = createButton("", PATH_DARROW,
-                140, 50, 15, "black",
-                null, null, null);*/
 
         inventory = createButton("Inventory", null,
                 140, 20, 15, "black",
@@ -67,14 +55,8 @@ public class GameView implements UtilsLayout, UtilsButtons, UtilsTextManager, Ut
 
     private void makeLayouts() {
         root.getChildren().add(border);
-        //border.setTop(up_map_change);
-        //BorderPane.setAlignment(up_map_change, Pos.CENTER);
-        border.setLeft(left_map_change);
-        BorderPane.setAlignment(left_map_change, Pos.CENTER);
-        /*border.setRight(right_map_change);
-        BorderPane.setAlignment(right_map_change, Pos.CENTER);
-        border.setBottom(down_map_change);
-        BorderPane.setAlignment(down_map_change, Pos.CENTER);*/
+        border.setLeft(fight_btn);
+        BorderPane.setAlignment(fight_btn, Pos.BOTTOM_CENTER);
 
         border.setCenter(inventory);
         BorderPane.setAlignment(inventory, Pos.BOTTOM_RIGHT);
@@ -93,6 +75,7 @@ public class GameView implements UtilsLayout, UtilsButtons, UtilsTextManager, Ut
 
     public interface Listener{
         void inventory();
+        void fight();
     }
 
 }

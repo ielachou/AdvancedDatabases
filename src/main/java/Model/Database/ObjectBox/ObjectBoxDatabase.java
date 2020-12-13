@@ -43,6 +43,13 @@ public class ObjectBoxDatabase extends Database {
     }
 
     @Override
+    public Perso getPerso(long id) {
+        Box<Perso> box = store.boxFor(Perso.class);
+        Perso perso = box.query().equal(Perso_.id, id).build().findFirst();
+        return perso;
+    }
+
+    @Override
     public ArrayList<Item> getInventory(Perso perso) {
         Box<Item> box = store.boxFor(Item.class);
         ArrayList<Item> res = new ArrayList( box.query().equal(Item_.ownerName, perso.getPseudo()).build().find()) ;
@@ -84,6 +91,12 @@ public class ObjectBoxDatabase extends Database {
     }
 
     @Override
+    public void removePerso(long id) {
+        Box<Perso> box = store.boxFor(Perso.class);
+        box.remove(id);
+    }
+
+    @Override
     public void removePerso(Perso perso) {
         Box<Perso> box = store.boxFor(Perso.class);
         this.removeInventory(perso);
@@ -98,6 +111,11 @@ public class ObjectBoxDatabase extends Database {
     public void removeAllItems(){
         Box<Item> box = store.boxFor(Item.class);
         box.removeAll();
+    }
+
+    @Override
+    public int countPersos() {
+        return (int) store.boxFor(Perso.class).count();
     }
 
     @Override

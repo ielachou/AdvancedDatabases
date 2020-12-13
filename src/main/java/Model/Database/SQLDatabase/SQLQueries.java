@@ -3,6 +3,8 @@ package Model.Database.SQLDatabase;
 public enum SQLQueries implements QueryInterface {
     selectPerso("SELECT ID,pseudo,sexe,dommages,agilite,intelligence, " +
             "chance,force,vitality,energy,y,x  FROM persos WHERE pseudo = ? " ),
+    selectPersoByID("SELECT ID,pseudo,sexe,dommages,agilite,intelligence, " +
+            "chance,force,vitality,energy,y,x  FROM persos WHERE ID = ? " ),
     selectMonster("SELECT ID,name,rank,dommages,agilite,intelligence, " +
             "chance,force,vitality,energy,y,x  FROM monsters WHERE  rank = ? AND name = ?" ),
 
@@ -59,7 +61,8 @@ public enum SQLQueries implements QueryInterface {
             "ORDER BY fp.FIGHT_ID"),
 
 
-    getFightID("SELECT FIGHT_ID FROM fightMonster WHERE MONSTER_ID = ?");
+    getFightID("SELECT FIGHT_ID FROM fightMonster WHERE MONSTER_ID = ?"),
+    countPersos("SELECT COUNT(*) FROM persos");
 
 
     private String query = "";

@@ -152,6 +152,31 @@ public class SQLDatabase extends Database {
     }
 
     @Override
+    public Perso getPerso(long id) {
+        Perso res = null;
+        Connection connection = null;
+        try {
+            connection = this.connect();
+
+            ResultSet rs = this.executeSelectQuery(SQLQueries.selectPersoByID, connection, id);
+            if (rs.next()) {
+                res = new Perso(rs.getLong("ID"), rs.getString("pseudo"), rs.getInt("x"),
+                        rs.getInt("y"), rs.getInt("energy"),
+                        rs.getInt("vitality"), rs.getInt("force"),
+                        rs.getInt("chance"), rs.getInt("intelligence"),
+                        rs.getInt("agilite"), rs.getInt("dommages"),
+                        rs.getInt("sexe")
+                );
+            }
+            rs.close();
+            connection.close();
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+        }
+        return res;
+    }
+
+    @Override
     public ArrayList<Item> getInventory(Perso perso) {
         ArrayList<Item> res = new ArrayList<>();
         Connection connection = null;
@@ -283,6 +308,11 @@ public class SQLDatabase extends Database {
         } catch (SQLException throwables) {
             throwables.printStackTrace();
         }
+    }
+
+    @Override
+    public void removePerso(long id) {
+
     }
 
     @Override
@@ -511,5 +541,23 @@ public class SQLDatabase extends Database {
         } catch (SQLException throwables) {
             throwables.printStackTrace();
         }
+    }
+
+    @Override
+    public int countPersos() {
+        Connection connection = null;
+        int res = 0;
+        try{
+            connection = this.connect();
+            ResultSet rs = this.executeSelectQuery(SQLQueries.countPersos, connection);
+            if(rs.next()) {
+                res = rs.getInt(1);
+            }
+            rs.close();
+            connection.close();
+        }catch (SQLException throwables){
+            throwables.printStackTrace();
+        }
+        return res;
     }
 }

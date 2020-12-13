@@ -2,15 +2,12 @@ package ADBTest;
 
 
 import Controller.MainController;
-import Model.Database.Database;
 import Model.Database.ObjectBox.ObjectBoxDatabase;
 import Model.Database.SQLDatabase.SQLDatabase;
-import Model.Generator.SQLGenerator;
+import Model.Generator.Generator;
 import javafx.application.Application;
 import javafx.application.HostServices;
 import javafx.stage.Stage;
-
-import static java.lang.System.currentTimeMillis;
 
 /**
  * Classe principale du projet, permet de lancer l'application
@@ -24,22 +21,30 @@ public class Main extends Application {
     @Override
     public void start(Stage primaryStage) {
         // finding the time before the operation is executed
+        Generator OBGenerator = new Generator(ObjectBoxDatabase.getInstance());
+        Generator SQLGenerator = new Generator(SQLDatabase.getInstance());
+
         long start = System.currentTimeMillis();
 
 
-        SQLGenerator.generatePersos(1000, ObjectBoxDatabase.getInstance());
-
+        //OBGenerator.generatePersos(100);
+        //OBGenerator.updatePersos(1000);
+        //OBGenerator.selectPersos(1000);
         //finding the time after the operation is executed
         long end = System.currentTimeMillis();
         //finding the time difference and converting it into seconds
         float sec = (end - start) / 1000F; System.out.println(sec + " seconds for objectbox");
 
         start = System.currentTimeMillis();
-        SQLGenerator.generatePersos(1000, SQLDatabase.getInstance());
+        //SQLGenerator.generatePersos(100);
+        //SQLGenerator.updatePersos(1000);
+        //SQLGenerator.selectPersos(1000);
+
         end = System.currentTimeMillis();
 
         sec = (end - start) / 1000F;
         System.out.println(sec + " seconds for sqlite");
+
 
         HostServices instance = getHostServices();
         MainController mainController = new MainController(primaryStage, instance);

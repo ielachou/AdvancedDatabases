@@ -10,6 +10,8 @@ public abstract class Database {
 
     public abstract Perso getPerso(String pseudo) ;
 
+    public abstract Perso getPerso(long id);
+
     public abstract ArrayList<Item> getInventory(Perso perso) ;
 
     public abstract void requestComplicated(int i);
@@ -24,9 +26,11 @@ public abstract class Database {
 
     public abstract void removePerso(Perso perso) ;
 
-    public abstract void removeItem(Item item) ;
+    public abstract void removePerso(String pseudo) ;
 
-    public abstract void removePerso(String pseudo);
+    public abstract void removePerso(long id) ;
+
+    public abstract void removeItem(Item item) ;
 
     public abstract void removeInventory(Perso perso);
 
@@ -43,4 +47,6 @@ public abstract class Database {
     public abstract void removeAllPersos();
 
     public abstract void removeAllItems();
+
+    public abstract int countPersos();
 }

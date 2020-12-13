@@ -2,12 +2,14 @@ package Controller;
 
 import Controller.CharControllers.CreateCharController;
 import Controller.CharControllers.SelectCharController;
+import Controller.GameControllers.FightController;
 import Controller.GameControllers.GameController;
 import Controller.GameControllers.InventoryController;
 import Model.Database.ObjectBox.ObjectBoxDatabase;
 import Model.Database.SQLDatabase.SQLDatabase;
 import View.CharView.CreateCharPage;
 import View.CharView.SelectCharPage;
+import View.GameView.FightView;
 import View.GameView.GameView;
 import View.GameView.InventoryView;
 
@@ -56,5 +58,11 @@ public interface SwitchController {
         InventoryView inventoryView = new InventoryView();
         InventoryController inventoryController = new InventoryController(inventoryView, controller.getStage());
         setControl(controller, inventoryController);
+    }
+
+    default void goToFight(AbstractController controller){
+        FightView fightView = new FightView();
+        FightController fightController = new FightController(fightView, controller.getStage());
+        setControl(controller, fightController);
     }
 }

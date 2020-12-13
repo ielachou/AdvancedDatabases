@@ -26,4 +26,9 @@ public class GameController extends AbstractController implements GameView.Liste
     public void inventory() {
         goToInventory(this);
     }
+
+    @Override
+    public void fight(){
+        goToFight(this);
+    }
 }
