@@ -149,7 +149,7 @@ public class ObjectBoxDatabase extends Database {
         if(number != -1) {
             return (ArrayList<Perso>) box.query().less(Perso_.__ID_PROPERTY, number).build().find();
         }else{
-            return (ArrayList<Perso>) box.query().build().find();
+            return (ArrayList<Perso>) box.getAll();
         }
     }
 

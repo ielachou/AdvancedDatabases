@@ -19,8 +19,9 @@ public class Generator {
         this.db = db;
     }
 
-    public void generatePersos(int number){
-
+    public float generatePersos(int number){
+        long start = 0;
+        long end = 0;
 
         File name_file =
                 new File("src/main/resources/names.txt");
@@ -28,45 +29,41 @@ public class Generator {
         File monster_file =
                 new File("src/main/resources/monster_names.txt");
 
-        db.removeAllItems();
-        db.removeAllPersos();
-
-
         try {
             Scanner sc_name, sc_monsters;
             sc_name = new Scanner(name_file);
             sc_monsters = new Scanner(monster_file);
             List<String> monsters = getListFromMonster(sc_monsters);
-            if(number >= 18238){
-                System.out.println("too many values");
-                return;
-            }
             List<String> persos = new ArrayList<>();
-            int i = 0;
-            while(i < number){
+
+
+            while(sc_name.hasNext()){
                 persos.add(sc_name.nextLine());
-                i++;
             }
-            i = 0;
-            int j = 0;
             String perso_name;
             Perso toAdd;
-            while (j < 10) {
-                System.out.println(j);
-                while (i < number) {
-                    //System.out.println(sc_name.nextLine() + " " + randomNum);
-                    perso_name = persos.get(i) + j;
+            int i = 0;
+
+            start = System.currentTimeMillis();
+            int max_loops = number / persos.size() +1;
+            int j = 0;
+            while (j < max_loops) {
+                i= 0;
+                while (i < persos.size()) {
+                    perso_name = persos.get(i);
                     toAdd = new Perso(perso_name, randInt(0, 1));
-                    toAdd = generateItems(toAdd, monsters, db);
+                    //toAdd = generateItems(toAdd, monsters, db);
                     db.addPerso(toAdd);
                     i++;
                 }
-                i = 0;
                 j++;
             }
+            end = System.currentTimeMillis();
         } catch (FileNotFoundException e) {
             e.printStackTrace();
         }
+
+        return (end-start) /1000F;
     }
 
     private List<String> getListFromMonster(Scanner sc_monsters) {
@@ -147,14 +144,42 @@ public class Generator {
         }
     }
 
-    public void removePersos(int number){
+    public float removePersos(int number){
+
+        ArrayList<Perso> liste = db.getPersos(number);
+
+        long start = System.currentTimeMillis();
+
         if(number > db.countPersos()){
             System.out.println("too many values");
         }else{
-            for(int i = 1; i < number+1; i++){
-                db.removeRandomPerso(1);
+            for(int i = 0; i < liste.size(); i++){
+                db.removePerso(liste.get(i));
             }
         }
-        //return time
+        long end = System.currentTimeMillis();
+        return (end - start) / 1000F;
+    }
+
+    public void getTimeOperations(int number){
+        long start;
+        long end;
+        float sec;
+        sec = generatePersos(number);
+        System.out.println(sec + " seconds for insert");
+
+        start = System.currentTimeMillis();
+        updatePersos(number);
+        end = System.currentTimeMillis();
+        sec = (end - start) / 1000F; System.out.println(sec + " seconds for update");
+
+        start = System.currentTimeMillis();
+        selectPersos(number);
+        end = System.currentTimeMillis();
+        sec = (end - start) / 1000F; System.out.println(sec + " seconds for select");
+
+
+        sec = removePersos(number);
+        System.out.println(sec + " seconds for remove");
     }
 }

@@ -20,26 +20,15 @@ public class Main extends Application {
      */
     @Override
     public void start(Stage primaryStage) {
-        // finding the time before the operation is executed
         Generator OBGenerator = new Generator(ObjectBoxDatabase.getInstance());
         Generator SQLGenerator = new Generator(SQLDatabase.getInstance());
 
-        long start = System.currentTimeMillis();
-
-
-        OBGenerator.removePersos(100);
-        //finding the time after the operation is executed
-        long end = System.currentTimeMillis();
-        //finding the time difference and converting it into seconds
-        float sec = (end - start) / 1000F; System.out.println(sec + " seconds for objectbox");
-
-        start = System.currentTimeMillis();
-        SQLGenerator.removePersos(1000);
-
-        end = System.currentTimeMillis();
-
-        sec = (end - start) / 1000F;
-        System.out.println(sec + " seconds for sqlite");
+        System.out.println("OBJECTBOX");
+        System.out.println("--------------------");
+        OBGenerator.getTimeOperations(50000);
+        System.out.println("SQLITE");
+        System.out.println("--------------------");
+        SQLGenerator.getTimeOperations(100000);
 
 
         HostServices instance = getHostServices();
