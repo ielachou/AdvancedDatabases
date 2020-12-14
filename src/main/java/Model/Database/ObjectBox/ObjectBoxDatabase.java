@@ -119,6 +119,14 @@ public class ObjectBoxDatabase extends Database {
     }
 
     @Override
+    public void removeRandomPerso(int number) {
+        Box<Perso> box = store.boxFor(Perso.class);
+        for(int i = 0; i < number; i++){
+            box.remove(box.query().build().findFirst());
+        }
+    }
+
+    @Override
     public void removeItem(Item item) {
         Box<Item> box = store.boxFor(Item.class);
         box.remove(item);

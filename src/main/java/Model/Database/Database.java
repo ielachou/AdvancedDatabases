@@ -49,4 +49,7 @@ public abstract class Database {
     public abstract void removeAllItems();
 
     public abstract int countPersos();
+
+    public abstract void removeRandomPerso(int number);
+
 }

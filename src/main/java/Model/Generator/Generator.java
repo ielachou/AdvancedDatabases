@@ -152,7 +152,7 @@ public class Generator {
             System.out.println("too many values");
         }else{
             for(int i = 1; i < number+1; i++){
-
+                db.removeRandomPerso(1);
             }
         }
         //return time

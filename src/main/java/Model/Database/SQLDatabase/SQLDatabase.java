@@ -560,4 +560,13 @@ public class SQLDatabase extends Database {
         }
         return res;
     }
+
+    @Override
+    public void removeRandomPerso(int number) {
+        try {
+            this.executeSql(SQLQueries.removeRandomPersos,number);
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+        }
+    }
 }

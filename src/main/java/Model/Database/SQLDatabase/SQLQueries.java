@@ -62,7 +62,9 @@ public enum SQLQueries implements QueryInterface {
 
 
     getFightID("SELECT FIGHT_ID FROM fightMonster WHERE MONSTER_ID = ?"),
-    countPersos("SELECT COUNT(*) FROM persos");
+    countPersos("SELECT COUNT(*) FROM persos"),
+    removeRandomPersos("DELETE FROM persos " +
+                                "WHERE ROWID <= ?;");
 
 
     private String query = "";

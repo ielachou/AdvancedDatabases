@@ -27,18 +27,14 @@ public class Main extends Application {
         long start = System.currentTimeMillis();
 
 
-        //OBGenerator.generatePersos(100);
-        //OBGenerator.updatePersos(1000);
-        //OBGenerator.selectPersos(1000);
+        OBGenerator.removePersos(100);
         //finding the time after the operation is executed
         long end = System.currentTimeMillis();
         //finding the time difference and converting it into seconds
         float sec = (end - start) / 1000F; System.out.println(sec + " seconds for objectbox");
 
         start = System.currentTimeMillis();
-        //SQLGenerator.generatePersos(100);
-        //SQLGenerator.updatePersos(1000);
-        //SQLGenerator.selectPersos(1000);
+        SQLGenerator.removePersos(1000);
 
         end = System.currentTimeMillis();
 
