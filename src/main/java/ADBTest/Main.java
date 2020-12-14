@@ -30,6 +30,8 @@ public class Main extends Application {
         System.out.println("--------------------");
         SQLGenerator.getTimeOperations(100000);
 
+        //OBGenerator.generatePersos(20);
+        //SQLGenerator.generatePersos(20);
 
         HostServices instance = getHostServices();
         MainController mainController = new MainController(primaryStage, instance);

@@ -19,6 +19,11 @@ public class Generator {
         this.db = db;
     }
 
+    /**
+     * Will insert number times a new entry in the db
+     * @param number number of inserts
+     * @return time
+     */
     public float generatePersos(int number){
         long start = 0;
         long end = 0;
@@ -66,6 +71,12 @@ public class Generator {
         return (end-start) /1000F;
     }
 
+    /**
+     * Return a list with all monsters in the file
+     *
+     * @param sc_monsters scanner of monster files
+     * @return List with names of monsters
+     */
     private List<String> getListFromMonster(Scanner sc_monsters) {
 
         List<String> monster_list = new ArrayList<>();
@@ -77,7 +88,14 @@ public class Generator {
     }
 
 
-    public Perso generateItems(Perso perso, List<String> monsters, Database db){
+    /**
+     * Generate a lot of items for a designated perso
+     *
+     * @param perso Perso who will be added by items
+     * @param monsters List of monster names
+     * @return Perso with new items and stats
+     */
+    public Perso generateItems(Perso perso, List<String> monsters){
 
         String monsterName;
         String itemType;
@@ -101,6 +119,13 @@ public class Generator {
         return perso;
     }
 
+    /**
+     * Update a perso with stats of an item
+     *
+     * @param perso perso to update
+     * @param toAdd item to add at the perso
+     * @return updated perso
+     */
     private Perso updateStats(Perso perso, Item toAdd) {
         perso.setAgilite(perso.getAgilite() + toAdd.getAgility());
         perso.setChance(perso.getChance() + toAdd.getChance());
@@ -112,16 +137,36 @@ public class Generator {
         return perso;
     }
 
+    /**
+     * Generate a random integer
+     *
+     * @param min minimum
+     * @param max maximum
+     * @return random int
+     */
     private int randInt(int min, int max){
         return ThreadLocalRandom.current().nextInt(min, max +1);
     }
 
+    /**
+     * Generate a new Item with random stats
+     *
+     * @param pseudo pseudo of the perso
+     * @param itemName item name
+     * @param equiped equiped item or not
+     * @return new Item with random stats
+     */
     private Item randItem(String pseudo, String itemName, boolean equiped){
 
         return new Item("Lorem Ipsum", pseudo, itemName ,randInt(0,350),
                 randInt(0,100), randInt(0,100), randInt(0,100), randInt(0,100), randInt(0,20), equiped);
     }
 
+    /**
+     * Update a given number of persos into the database
+     *
+     * @param number number of updates
+     */
     public void updatePersos(int number){
         if(number > db.countPersos()){
             System.out.println("too many values");
@@ -133,6 +178,11 @@ public class Generator {
         }
     }
 
+    /**
+     * Selects a given number of persos into the database
+     *
+     * @param number number of selects
+     */
     public void selectPersos(int number){
         Perso selected;
         if(number > db.countPersos()){
@@ -144,6 +194,13 @@ public class Generator {
         }
     }
 
+
+    /**
+     * Removes a given number of persos out of the database
+     *
+     * @param number number of removes
+     * @return time
+     */
     public float removePersos(int number){
 
         ArrayList<Perso> liste = db.getPersos(number);
@@ -161,6 +218,11 @@ public class Generator {
         return (end - start) / 1000F;
     }
 
+    /**
+     * Prints all execution time of operators
+     *
+     * @param number number of operations
+     */
     public void getTimeOperations(int number){
         long start;
         long end;
